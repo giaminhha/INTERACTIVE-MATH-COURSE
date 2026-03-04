@@ -1,4 +1,5 @@
 {
+  "id": "chuyen-dong",
   "slug": "chuyen-dong",
   "title": "Chuyển động, Tốc độ, Vận tốc, Thay đổi",
   "description": "Xây dựng trực giác về thay đổi: vị trí, tốc độ, vận tốc, và tốc độ thay đổi — nền tảng cho giới hạn và đạo hàm.",
@@ -61,8 +62,28 @@
                       "reflectionSpec": {
                         "triggers": [
                           {
+                            "condition": "state.resolution <= 1",
+                            "message": "Δt = 1 — khoảng rộng: cát tuyến từ t=1 đến t=2. Độ dốc = (4−1)/1 = 3. Rất xa giá trị đích."
+                          },
+                          {
+                            "condition": "state.resolution == 2",
+                            "message": "Δt = 0.5 — cát tuyến từ t=1 đến t=1.5. Độ dốc = (2.25−1)/0.5 = 2.5. Đang tiến về 2."
+                          },
+                          {
+                            "condition": "state.resolution >= 5 && state.resolution < 10",
+                            "message": "Δt ≈ 0.2 — độ dốc ≈ 2.2. Hội tụ rõ ràng: mỗi lần kéo thêm một bậc, giá trị gần hơn."
+                          },
+                          {
+                            "condition": "state.resolution >= 10 && state.resolution < 50",
+                            "message": "Δt ≈ 0.1 — độ dốc ≈ 2.1. Dãy: 3, 2.5, 2.2, 2.1… xu hướng tiến về 2 là không thể phủ nhận."
+                          },
+                          {
+                            "condition": "state.resolution >= 50 && state.resolution < 100",
+                            "message": "Δt ≈ 0.02 — độ dốc ≈ 2.02. Gần ổn định: cát tuyến gần như trùng tiếp tuyến tại t = 1."
+                          },
+                          {
                             "condition": "state.resolution >= 100",
-                            "message": "Độ dốc ≈ 2.00 — sai số gần bằng 0. Giá trị đang ổn định."
+                            "message": "Δt = 0.01 — độ dốc ≈ 2.01. Sai số gần bằng 0. Giá trị hội tụ về 2 — đây là tốc độ tức thời tại t = 1."
                           }
                         ]
                       }
@@ -78,10 +99,10 @@
                   "id": "text-hoi-tu",
                   "type": "text",
                   "content": {
-                    "heading": "Quy luật hội tụ",
+                    "heading": "Dãy số hội tụ về 2",
                     "paragraphs": [
-                      "Khi $\\Delta t$ giảm, độ dốc cát tuyến $\\Delta f / \\Delta t$ thay đổi — nhưng không hỗn loạn. Với $f(t) = t^2$ tại $a = 1$: $\\Delta t = 1 \\to$ độ dốc = 3; $\\Delta t = 0.1 \\to$ 2.1; $\\Delta t = 0.01 \\to$ 2.01.",
-                      "Các giá trị tiến đến 2. Hiện tượng này — một đại lượng ổn định khi đại lượng khác tiến về 0 — sẽ được đặt tên chính xác ở Module tiếp theo."
+                      "Với $f(t) = t^2$ tại $a = 1$, lưới Đầu tiên của Δt và độ dốc cát tuyến: $\\Delta t = 1 \\to 3$; $0.5 \\to 2.5$; $0.2 \\to 2.2$; $0.1 \\to 2.1$; $0.02 \\to 2.02$; $0.01 \\to 2.01$.",
+                      "Công thức chính xác: khi $\\Delta t \\to 0$, độ dốc = $\\frac{(1+\\Delta t)^2 - 1}{\\Delta t} = 2 + \\Delta t \\to 2$. Các giá trị tiến đến 2 — nhưng không bao giờ bằng 2 khi $\\Delta t > 0$. Hiện tượng này có tên gọi chính xác: <b>giới hạn</b>."
                     ]
                   }
                 }
@@ -400,20 +421,20 @@
                         {
                           "id": "small",
                           "trigger": "state.currentValue < 1.2",
-                          "text": "Δy/Δx nhỏ — đường cong gần bằng phẳng ở đây. Trong chuyển động: vật chậm. Kinh doanh: chi phí thay đổi ít."
+                          "text": "Δy/Δx nhỏ — khoảng [0, b] ngắn. Với f(t)=t², vận tốc TB trên [0, b] = b. Kéo b sang phải để thấy tỷ số tăng dần."
                         },
                         {
                           "id": "medium",
                           "trigger": "state.currentValue > 1.8 && state.currentValue < 2.5",
-                          "text": "Δy/Δx ≈ 2–3. Cùng công thức cho mọi ngữ cảnh: vận tốc, tốc độ tăng nhiệt, chi phí biên."
+                          "text": "Δy/Δx ≈ 2. Tốc độ trung bình của chuyển động f(t)=t² trên khoảng này. Cùng công thức này đo tốc độ thay đổi của bất kỳ đại lượng nào."
                         },
                         {
                           "id": "large",
                           "trigger": "state.currentValue > 3.5",
-                          "text": "Δy/Δx lớn — đường cong dốc. Cấu trúc (thay đổi đầu ra)/(thay đổi đầu vào) luôn giống nhau."
+                          "text": "Δy/Δx lớn — khoảng dài. Vật đang tăng tốc liên tục (đường cong dốc dần), nhưng cát tuyến chỉ cho một con số trung bình — đó là giới hạn của phép đo trên khoảng."
                         }
                       ],
-                      "prompt": "Kéo b để thay đổi khoảng. Tỷ số Δy/Δx thay đổi thế nào? Nó đo gì nếu y là khoảng cách? Nếu y là nhiệt độ? Nếu y là chi phí?"
+                      "prompt": "Với $f(t) = t^2$, kéo b để thay đổi khoảng. Tỉ số Δy/Δx thay đổi thế nào? Đọc giá trị độ dốc: nó đo tốc độ thay đổi trung bình trên khoảng [0, b]. Cè xét: công thức này có thay đổi gì nếu y không phải vị trí mà là nhiệt độ, dân số, hay bất cứ đại lượng nào khác?"
                     }
                   }
                 }
@@ -426,10 +447,10 @@
                   "id": "text-cau-truc-pho-quat",
                   "type": "text",
                   "content": {
-                    "heading": "Δy/Δx: cấu trúc phổ quát",
+                    "heading": "Δy/Δx: cùng cấu trúc, mọi ngữ cảnh",
                     "paragraphs": [
-                      "Tỷ số $\\frac{\\Delta y}{\\Delta x} = \\frac{y_2 - y_1}{x_2 - x_1}$ đo lượng y thay đổi bao nhiêu trên mỗi đơn vị thay đổi của x. Cấu trúc này giống hệt nhau trong mọi ngữ cảnh:",
-                      "Chuyển động: $\\Delta f / \\Delta t$ = vận tốc trung bình (m/s). Nhiệt độ: $\\Delta T / \\Delta t$ (°C/h). Chi phí: $\\Delta C / \\Delta q$ ($/đơn vị). Công thức không thuộc về vật lý — nó thuộc về mọi mối quan hệ giữa hai đại lượng thay đổi."
+                      "Trong toàn bộ khóa học này, ta đã dùng $\\frac{\\Delta f}{\\Delta t}$ cho chuyển động. Nhưng cấu trúc $\\frac{\\Delta y}{\\Delta x} = \\frac{y_2 - y_1}{x_2 - x_1}$ không thuộc riêng về vật lý — nó đo tốc độ thay đổi của bất kỳ đại lượng nào theo bất kỳ đại lượng nào khác.",
+                      "Nhiệt độ: $\\Delta T / \\Delta t$ (°C/h). Dân số: $\\Delta P / \\Delta t$ (người/năm). Ví dụ có thể thay đổi — nhưng phép tính luôn là: (thay đổi đầu ra) ÷ (thay đổi đầu vào)."
                     ]
                   }
                 },
@@ -561,27 +582,27 @@
                   "id": "quiz-l8-4",
                   "type": "quiz",
                   "content": {
-                    "question": "Trong chuyển động, $\\Delta f / \\Delta t = 3$ m/s. Trong kinh doanh, $\\Delta C / \\Delta q = 3$ $/đơn vị nghĩa là:",
+                    "question": "Với $f(t) = t^2$, tốc độ trung bình trên $[0, 3]$ là 3 m/s, trên $[0, 1]$ là 1 m/s. Dãy nào nào giải thích điều này?",
                     "options": [
                       {
                         "value": "a",
-                        "label": "Công ty lãi 3 đô la."
+                        "label": "Vận tốc tốc là hằng số theo thời gian."
                       },
                       {
                         "value": "b",
-                        "label": "Sản lượng là 3 đơn vị."
+                        "label": "Vận tốc tăng dần, nên khoảng dài hơn cho trung bình cao hơn."
                       },
                       {
                         "value": "c",
-                        "label": "Mỗi đơn vị sản xuất thêm tốn trung bình 3 đô la trên khoảng đã cho."
+                        "label": "Hai giá trị này là ngẫu nhiên."
                       },
                       {
                         "value": "d",
-                        "label": "Chi phí cố định tại 3 đô la."
+                        "label": "Công thức $\\Delta f / \\Delta t$ bị áp dụng sai."
                       }
                     ],
-                    "correct": "c",
-                    "explanation": "Cùng công thức, khác ý nghĩa vật lý: tỷ số đo thay đổi trên mỗi đơn vị."
+                    "correct": "b",
+                    "explanation": "$f(t) = t^2$ tăng tốc: vận tốc tại $t=1$ là 2 m/s, tại $t=3$ là 6 m/s. Khoảng dài hơn bắt đầu bao gồm cả giai đoạn nhanh hơn, nên trung bình cao hơn."
                   }
                 }
               ]
@@ -625,27 +646,27 @@
                   "id": "quiz-l8-6",
                   "type": "quiz",
                   "content": {
-                    "question": "$\\Delta C / \\Delta q = -5$ $/đơn vị. Dấu âm nghĩa là gì?",
+                    "question": "$f(2) = 10$ m, $f(5) = 1$ m. Vận tốc trung bình trên $[2, 5]$? Dấu âm có ý nghĩa gì?",
                     "options": [
                       {
                         "value": "a",
-                        "label": "Chi phí là âm — không thể xảy ra."
+                        "label": "$3$ m/s — vật đi từ 2 đến 5."
                       },
                       {
                         "value": "b",
-                        "label": "Sản lượng $q$ đang giảm."
+                        "label": "$-3$ m/s — vật di chuyển ròng theo chiều âm, vị trí giảm."
                       },
                       {
                         "value": "c",
-                        "label": "Chi phí trên mỗi đơn vị đang giảm khi sản lượng tăng."
+                        "label": "$-9$ m/s — vật rất nhanh."
                       },
                       {
                         "value": "d",
-                        "label": "Công thức được áp dụng ngược."
+                        "label": "$0$ m/s — vật đứng yên."
                       }
                     ],
-                    "correct": "c",
-                    "explanation": "Dấu âm = đại lượng đầu ra giảm khi đại lượng đầu vào tăng."
+                    "correct": "b",
+                    "explanation": "$\\frac{1 - 10}{5 - 2} = \\frac{-9}{3} = -3$ m/s. Dấu âm = vị trí giảm = vật đang di chuyển ròng theo chiều âm."
                   }
                 }
               ]
@@ -657,27 +678,27 @@
                   "id": "quiz-l8-7",
                   "type": "quiz",
                   "content": {
-                    "question": "Cây cao từ 10 cm lên 28 cm trong 6 tuần. Tốc độ thay đổi chiều cao trung bình?",
+                    "question": "Với $f(t) = t^2$, khi thu nhỏ khoảng $[1, b]$ với $b \\to 1$, tốc độ trung bình tiến về giá trị nào?",
                     "options": [
                       {
                         "value": "a",
-                        "label": "38 cm/tuần"
+                        "label": "0"
                       },
                       {
                         "value": "b",
-                        "label": "28 cm/tuần"
+                        "label": "1"
                       },
                       {
                         "value": "c",
-                        "label": "3 cm/tuần"
+                        "label": "2"
                       },
                       {
                         "value": "d",
-                        "label": "18 cm"
+                        "label": "Không xác định — chia cho 0."
                       }
                     ],
                     "correct": "c",
-                    "explanation": "$\\frac{28 - 10}{6} = \\frac{18}{6} = 3$ cm/tuần."
+                    "explanation": "$\\frac{b^2 - 1}{b - 1} = b + 1 \\to 1 + 1 = 2$ khi $b \\to 1$. Đây chính là vận tốc tức thời tại $t = 1$ — khái niệm mà giới hạn sẽ chính thức hoá."
                   }
                 }
               ]
@@ -742,41 +763,69 @@
                     "lesson": {
                       "interactionType": "B",
                       "meta": {
-                        "parameterLabel": "Điểm cuối b"
+                        "parameterLabel": "Thời điểm kết thúc (giây)"
                       },
                       "parameter": {
                         "min": 0.5,
-                        "max": 3,
-                        "initial": 1.5
+                        "max": 6,
+                        "initial": 3
                       },
                       "system": {
                         "resolution": 200,
                         "view": {
                           "xMin": 0,
-                          "xMax": 6,
-                          "yMin": -1,
-                          "yMax": 10
+                          "xMax": 7,
+                          "yMin": -0.5,
+                          "yMax": 12
                         },
-                        "model": "p * x - 0.08 * p * x * x"
+                        "curves": [
+                          {
+                            "expr": "4*Math.sqrt(x)",
+                            "label": "Quãng đường thực tế",
+                            "color": "#3b82f6",
+                            "style": "solid",
+                            "width": 2
+                          },
+                          {
+                            "expr": "4/Math.sqrt(p)*x",
+                            "label": "Nếu đi đều (tốc độ trung bình)",
+                            "color": "#ef4444",
+                            "style": "dashed",
+                            "width": 2
+                          }
+                        ],
+                        "approachPoint": {
+                          "x": "p",
+                          "label": "b"
+                        },
+                        "annotations": [
+                          {
+                            "type": "limitValue",
+                            "expr": "4/Math.sqrt(p)",
+                            "at": "p",
+                            "label": "Tốc độ trung bình = {value} m/s",
+                            "color": "#ef4444"
+                          }
+                        ],
+                        "prompt": "Đường xanh = quãng đường thực tế (vật đi nhanh lúc đầu, chậm dần). Đường đỏ nét đứt = nếu vật đi đều suốt từ đầu đến cuối — hai đường gặp nhau tại điểm cuối. Kéo thanh trượt để thay đổi thời điểm. Tốc độ trung bình thay đổi thế nào?"
                       },
                       "reflections": [
                         {
-                          "id": "slow",
-                          "trigger": "state.currentValue < 1",
-                          "text": "Đường cong thoải — tốc độ thấp. Tốc độ trung bình = tổng quãng đường ÷ thời gian."
+                          "id": "short",
+                          "trigger": "state.currentValue < 1.5",
+                          "text": "Trong {eval:Math.round(p*10)/10} giây đầu, vật đi rất nhanh. Tốc độ trung bình = {eval:Math.round(4/Math.sqrt(p)*10)/10} m/s — cao vì vật mới xuất phát, chưa chậm lại nhiều."
                         },
                         {
                           "id": "medium",
-                          "trigger": "state.currentValue > 1.3 && state.currentValue < 1.7",
-                          "text": "Tốc độ trung bình trên [0, 6] tóm tắt toàn bộ hành trình bằng một con số."
+                          "trigger": "state.currentValue >= 1.5 && state.currentValue <= 4",
+                          "text": "Sau {eval:Math.round(p*10)/10} giây, tốc độ trung bình = {eval:Math.round(4/Math.sqrt(p)*10)/10} m/s. Vật đi chậm dần nên trung bình bị kéo xuống so với lúc đầu. Đường đỏ thoải hơn."
                         },
                         {
-                          "id": "fast",
-                          "trigger": "state.currentValue > 2.5",
-                          "text": "Đường cong dốc hơn — tốc độ đỉnh cao. Nhưng tốc độ trung bình vẫn che giấu mọi biến thiên bên trong."
+                          "id": "long",
+                          "trigger": "state.currentValue > 4",
+                          "text": "Khoảng dài {eval:Math.round(p*10)/10} giây — tốc độ trung bình chỉ còn {eval:Math.round(4/Math.sqrt(p)*10)/10} m/s. Con số này gộp cả lúc nhanh (đầu) và lúc chậm (cuối) thành một giá trị duy nhất — nó che giấu mọi biến thiên bên trong."
                         }
-                      ],
-                      "prompt": "Thay đổi tốc độ đỉnh. Tốc độ trung bình trên toàn bộ khoảng thay đổi thế nào? Hai hình dạng khác nhau có thể cho cùng tốc độ trung bình không?"
+                      ]
                     }
                   }
                 }
@@ -789,10 +838,10 @@
                   "id": "text-toc-do-tb-dinh-nghia",
                   "type": "text",
                   "content": {
-                    "heading": "Định nghĩa tốc độ trung bình",
+                    "heading": "Tốc độ trung bình: một con số, một đường thẳng",
                     "paragraphs": [
-                      "Tốc độ trung bình trên $[a, b]$ = tổng quãng đường đi được trên $[a, b]$ ÷ $(b - a)$. Quãng đường đếm mọi đoạn bất kể hướng, nên tốc độ trung bình luôn ≥ 0.",
-                      "Tốc độ trung bình tóm tắt toàn bộ hành trình bằng một con số duy nhất — nhưng che giấu mọi biến thiên bên trong khoảng."
+                      "Quãng đường thực tế $f(t) = 4\\sqrt{t}$ là đường cong — vật đi nhanh lúc đầu rồi chậm dần. Tốc độ trung bình trên $[0, b]$ = $\\frac{f(b)}{b} = \\frac{4\\sqrt{b}}{b} = \\frac{4}{\\sqrt{b}}$.",
+                      "Đường đỏ nét đứt trong tương tác vừa rồi là đường thẳng biểu diễn: <i>nếu vật đi đều suốt với tốc độ trung bình thì sẽ đến cùng vị trí</i>. Hai đường gặp nhau tại thời điểm $b$ — nhưng ở giữa chúng rất khác nhau."
                     ]
                   }
                 }
@@ -805,10 +854,10 @@
                   "id": "text-toc-do-tb-gioi-han",
                   "type": "text",
                   "content": {
-                    "heading": "Tốc độ trung bình không cho biết gì?",
+                    "heading": "Tốc độ trung bình che giấu điều gì?",
                     "paragraphs": [
-                      "Hai hành trình hoàn toàn khác nhau có thể cho cùng tốc độ trung bình. Giá trị trung bình không phân biệt vật đi nhanh hay chậm ở đâu, hay liệu vật có đổi chiều không.",
-                      "Tốc độ trung bình trả lời \"bao xa trên mỗi đơn vị thời gian, tính tổng?\" — không phải \"vật đang làm gì tại mỗi thời điểm?\""
+                      "Khi b = 1: tốc độ TB = 4 m/s. Khi b = 4: tốc độ TB = 2 m/s. Cùng một chuyến đi nhưng xét khoảng khác nhau thì được con số khác nhau. Tốc độ trung bình phụ thuộc vào khoảng bạn chọn.",
+                      "Tốc độ trung bình trả lời: \"trung bình mỗi giây đi được bao xa?\" — nó gộp cả lúc nhanh lẫn lúc chậm. Nó <b>không</b> cho biết vật đang làm gì tại một thời điểm cụ thể. Hai câu hỏi khác nhau sẽ cần công cụ khác nhau."
                     ]
                   }
                 }
@@ -1131,11 +1180,11 @@
                       "systemSpec": {
                         "initialState": {
                           "x": 0,
-                          "y": -5
+                          "y": 0
                         },
                         "evolutionRule": {
                           "type": "expression",
-                          "expression": "[1, 2*(3 - t)]",
+                          "expression": "[1, 3 - t]",
                           "variables": [
                             "t",
                             "x",
@@ -1148,30 +1197,33 @@
                         "viewBox": {
                           "xMin": 0,
                           "xMax": 6,
-                          "yMin": -6,
-                          "yMax": 5
-                        }
+                          "yMin": -1,
+                          "yMax": 5.5
+                        },
+                        "xLabel": "Thời gian (giây)",
+                        "yLabel": "Vị trí (m)",
+                        "showArea": true
                       },
                       "reflectionSpec": {
                         "triggers": [
                           {
                             "type": "timeReached",
-                            "value": 5.0,
-                            "message": "Đồ thị giảm → vận tốc âm. Vật đi theo chiều âm."
+                            "value": 1.0,
+                            "message": "Đồ thị dốc lên — vị trí đang tăng nhanh. Vận tốc dương: vật đi theo chiều dương."
                           },
                           {
                             "type": "timeReached",
                             "value": 3.0,
-                            "message": "Đồ thị nằm ngang — vận tốc = 0. Vật dừng thoáng chốc trước khi đổi chiều."
+                            "message": "Đồ thị nằm ngang — đường cong tiếp tuyến là nằm ngang, không dốc. Vận tốc = 0: vật đứng yên thoáng chốc."
                           },
                           {
                             "type": "timeReached",
-                            "value": 1.0,
-                            "message": "Đồ thị tăng → vận tốc dương. Vật đang đi theo chiều dương."
+                            "value": 5.0,
+                            "message": "Đồ thị dốc xuống — vị trí đang giảm. Vận tốc âm: vật đảo chiều, quay về vị trí ban đầu."
                           }
                         ]
                       },
-                      "prompt": "Quan sát chỉ báo chiều. Khi nào nó đọc dương? Khi nào âm? Đặc điểm nào của đồ thị tương ứng với mỗi dấu?"
+                      "prompt": "Đây là đồ thị vị trí–thời gian. Quan sát độ dốc của đường cong: khi đường dốc lên, vật đang đi đâu? Khi nằm ngang? Khi dốc xuống?"
                     }
                   }
                 }
@@ -1184,10 +1236,10 @@
                   "id": "text-van-toc-dau",
                   "type": "text",
                   "content": {
-                    "heading": "Vận tốc mang dấu",
+                    "heading": "Đọc vận tốc từ đồ thị vị trí",
                     "paragraphs": [
-                      "<b>Vận tốc</b> là đại lượng có dấu. Dương khi vật đi theo chiều dương (vị trí tăng), âm khi vật đi theo chiều âm (vị trí giảm).",
-                      "<b>Tốc độ</b> là giá trị tuyệt đối của vận tốc. Vật có vận tốc $-5$ m/s đang di chuyển với tốc độ 5 m/s theo chiều âm. Dấu không phải lỗi — nó mang thông tin hướng."
+                      "Đồ thị vừa quan sát là đồ thị <b>vị trí</b> $f(t)$, không phải vận tốc. Nhưng vận tốc ẩn trong hình dạng của nó: khi $f(t)$ tăng, vật đang đi theo chiều dương; khi giảm, chiều âm; khi nằm ngang, vật đứng yên.",
+                      "<b>Vận tốc</b> là đại lượng có dấu — dấu mã hoá <i>hướng</i> chuyển động. <b>Tốc độ</b> = giá trị tuyệt đối của vận tốc (luôn ≥ 0). Vật có vận tốc $-5$ m/s đang di chuyển <i>nhanh</i> 5 m/s, nhưng theo chiều âm."
                     ]
                   }
                 }
@@ -1200,10 +1252,10 @@
                   "id": "text-dau-tren-do-thi",
                   "type": "text",
                   "content": {
-                    "heading": "Dấu trên đồ thị",
+                    "heading": "Dấu trên đồ thị vị trí",
                     "paragraphs": [
-                      "Nơi $f$ <b>tăng</b>: vận tốc dương. Nơi $f$ <b>giảm</b>: vận tốc âm. Tại đỉnh (chuyển từ tăng sang giảm): vận tốc bằng 0 — vật đứng yên thoáng chốc.",
-                      "Độ dịch chuyển $\\Delta f = f(b) - f(a)$ cũng có dấu. $\\Delta f > 0$: ròng theo chiều dương. $\\Delta f < 0$: ròng theo chiều âm."
+                      "Nơi $f(t)$ <b>tăng</b>: vận tốc dương (đi chiều dương). Nơi $f(t)$ <b>giảm</b>: vận tốc âm (đi chiều âm). Tại đỉnh — điểm vật đổi chiều — $f(t)$ nằm ngang thoáng chốc: vận tốc bằng 0.",
+                      "Trong hoạt hình vừa thấy: $f(3) = 4.5$ m là điểm cao nhất, vận tốc = 0 tại đó. Sau $t = 3$, $f(t)$ giảm — vật quay lại — và tại $t = 6$, $f(6) = 0$: về đúng điểm xuất phát."
                     ]
                   }
                 }
@@ -1485,41 +1537,74 @@
                     "lesson": {
                       "interactionType": "B",
                       "meta": {
-                        "parameterLabel": "Độ cong"
+                        "parameterLabel": "Thời điểm cuối b (giây)"
                       },
                       "parameter": {
-                        "min": 0.2,
-                        "max": 2,
-                        "initial": 1
+                        "min": 1,
+                        "max": 9,
+                        "initial": 3
                       },
                       "system": {
                         "resolution": 200,
                         "view": {
                           "xMin": 0,
-                          "xMax": 5.5,
-                          "yMin": -1,
-                          "yMax": 14
+                          "xMax": 10,
+                          "yMin": -3,
+                          "yMax": 5
                         },
-                        "model": "-0.5 * p * x * x + 5 * x"
+                        "curves": [
+                          {
+                            "expr": "-0.25*x*x + 2*x",
+                            "label": "Vị trí vật theo thời gian",
+                            "color": "#3b82f6",
+                            "style": "solid",
+                            "width": 2
+                          },
+                          {
+                            "expr": "(-0.25*p + 2)*x",
+                            "label": "Đường thẳng nối điểm đầu và điểm cuối",
+                            "color": "#ef4444",
+                            "style": "dashed",
+                            "width": 2
+                          }
+                        ],
+                        "approachPoint": {
+                          "x": "p",
+                          "label": "b"
+                        },
+                        "annotations": [
+                          {
+                            "type": "limitValue",
+                            "expr": "-0.25*p + 2",
+                            "at": "p",
+                            "label": "Vận tốc trung bình = {value} m/s",
+                            "color": "#ef4444"
+                          }
+                        ],
+                        "prompt": "Vật được ném lên: đi về phía trước rồi quay lại. Đường đỏ nối vị trí ban đầu với vị trí tại thời điểm b. Độ dốc của đường đỏ = vận tốc trung bình. Kéo b để quan sát: khi nào đường đỏ nằm ngang? Khi nào dốc xuống?"
                       },
                       "reflections": [
                         {
-                          "id": "flat",
-                          "trigger": "state.currentValue < 0.4",
-                          "text": "Đường gần thẳng → cát tuyến gần trùng đường cong. Vận tốc trung bình ≈ hằng số."
+                          "id": "going-forward",
+                          "trigger": "state.currentValue < 4",
+                          "text": "Vật đang đi về phía trước. Đường đỏ dốc lên: vận tốc TB = {eval:Math.round((-0.25*p+2)*10)/10} m/s (dương)."
                         },
                         {
-                          "id": "mid",
-                          "trigger": "state.currentValue > 0.8 && state.currentValue < 1.2",
-                          "text": "Đường cong vừa phải — cát tuyến trên các khoảng khác nhau cho độ dốc khác nhau = vận tốc trung bình khác nhau."
+                          "id": "returning",
+                          "trigger": "state.currentValue >= 4 && state.currentValue < 7.5",
+                          "text": "Vật đã đạt đỉnh và đang quay lại. Dù vật đổi chiều, vận tốc TB = {eval:Math.round((-0.25*p+2)*10)/10} m/s vẫn dương — vì xét ròng, vật vẫn ở phía trước so với điểm xuất phát."
                         },
                         {
-                          "id": "steep",
-                          "trigger": "state.currentValue > 1.7",
-                          "text": "Đường cong rất cong — cát tuyến dốc lên ở đầu, dốc xuống ở cuối. Dấu vận tốc trung bình đổi!"
+                          "id": "near-zero",
+                          "trigger": "state.currentValue >= 7.5 && state.currentValue <= 8.5",
+                          "text": "Đường đỏ gần nằm ngang! VTB ≈ {eval:Math.round((-0.25*p+2)*10)/10} m/s, tiến về 0. Tại b = 8, vật về đúng nơi xuất phát: dịch chuyển ròng = 0 → vận tốc TB = 0."
+                        },
+                        {
+                          "id": "negative",
+                          "trigger": "state.currentValue > 8.5",
+                          "text": "Đường đỏ dốc xuống! VTB = {eval:Math.round((-0.25*p+2)*10)/10} m/s < 0. Vật đã vượt qua điểm xuất phát về phía ngược lại — dịch chuyển ròng âm."
                         }
-                      ],
-                      "prompt": "Thay đổi độ cong. Khi nào cát tuyến dốc lên? Dốc xuống? Vận tốc trung bình (Δf/Δt) dương hay âm?"
+                      ]
                     }
                   }
                 }
@@ -1532,10 +1617,10 @@
                   "id": "text-vtb-dinh-nghia",
                   "type": "text",
                   "content": {
-                    "heading": "Định nghĩa vận tốc trung bình",
+                    "heading": "Đường nối hai điểm = hình học của vận tốc trung bình",
                     "paragraphs": [
-                      "Vận tốc trung bình trên $[a, b]$: $\\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a}$. Đây là <b>độ dốc cát tuyến</b> qua hai điểm $(a, f(a))$ và $(b, f(b))$ trên đồ thị.",
-                      "Vận tốc trung bình có dấu: dương nếu vật di chuyển ròng theo chiều dương, âm nếu ngược lại."
+                      "Với $f(t) = -0.25t^2 + 2t$, vận tốc trung bình trên $[0, b]$ = $\\frac{f(b) - f(0)}{b - 0} = \\frac{f(b)}{b} = -0.25b + 2$. Đường đỏ trong tương tác vừa rồi là đường thẳng có độ dốc đó — gọi là <b>cát tuyến</b> (secant).",
+                      "Nói chung: vận tốc trung bình trên $[a, b]$ = $\\frac{f(b) - f(a)}{b - a}$ = độ dốc đường thẳng nối hai điểm $(a, f(a))$ và $(b, f(b))$. <b>Có dấu</b>: dương nếu vật tiến về phía trước, âm nếu vật lùi về sau."
                     ]
                   }
                 },
@@ -1543,7 +1628,7 @@
                   "id": "math-vtb",
                   "type": "math",
                   "content": {
-                    "latex": "\\bar{v} = \\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a}"
+                    "latex": "\\bar{v} = \\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a} = \\text{độ dốc đường nối (cát tuyến)}"
                   }
                 }
               ]
@@ -1555,10 +1640,10 @@
                   "id": "text-do-doc-y-nghia",
                   "type": "text",
                   "content": {
-                    "heading": "Độ dốc mang ý nghĩa vật lý",
+                    "heading": "Vận tốc trung bình ≠ tốc độ trung bình",
                     "paragraphs": [
-                      "Cát tuyến không phải phép dựng hình vô nghĩa. Độ dốc của nó chính là vận tốc trung bình — tỷ số giữa thay đổi vị trí ròng và thời gian đã trôi.",
-                      "Vận tốc trung bình ≠ tốc độ trung bình. Vận tốc dùng $\\Delta f$ (có dấu); tốc độ dùng tổng quãng đường (không dấu)."
+                      "Trong tương tác vừa rồi, khi b = 8 thì vận tốc trung bình = 0 (vật về đúng nơi xuất phát). Nhưng tốc độ trung bình > 0 vì vật đã đi xa rồi quay về — tổng quãng đường không hề bằng 0.",
+                      "Vận tốc trung bình dùng <b>dịch chuyển ròng</b> $\\Delta f$ (có dấu), còn tốc độ trung bình dùng <b>tổng quãng đường</b> (luôn ≥ 0). Một cái cho biết hướng, một cái không."
                     ]
                   }
                 }
@@ -1873,17 +1958,6 @@
               "order_index": 0,
               "blocks": [
                 {
-                  "id": "text-do-dich-chuyen-test",
-                  "type": "text",
-                  "content": {
-                    "heading": "Đây chỉ dùng để test interaction — sẽ bị xóa sau khi hoàn thiện.",
-                    "paragraphs": [
-                      "<b>Độ dịch chuyển</b> là thay đổi ròng vị trí: $\\Delta f = f(b) - f(a)$. Độ dịch chuyển có thể bằng 0 khi vật quay về điểm xuất phát.",
-                      "Ví dụ: $\\Delta f = f(6) - f(0) = 0 - 0 = 0$. Vật quay về vị trí ban đầu nhưng đã di chuyển thực sự."
-                    ]
-                  }
-                },
-                {
                   "id": "ia-quang-duong",
                   "type": "interaction",
                   "content": {
@@ -1919,7 +1993,10 @@
                           "xMax": 6,
                           "yMin": -1,
                           "yMax": 5.5
-                        }
+                        },
+                        "xLabel": "Thời gian (giây)",
+                        "yLabel": "Vị trí (m)",
+                        "showArea": true
                       },
                       "reflectionSpec": {
                         "triggers": [
@@ -2293,10 +2370,10 @@
                     "lesson": {
                       "interactionType": "B",
                       "meta": {
-                        "parameterLabel": "Tốc độ (m/s)"
+                        "parameterLabel": "Gia tốc (m/s²)"
                       },
                       "parameter": {
-                        "min": 0.5,
+                        "min": 0.2,
                         "max": 4,
                         "initial": 2
                       },
@@ -2304,30 +2381,45 @@
                         "resolution": 200,
                         "view": {
                           "xMin": 0,
-                          "xMax": 5,
-                          "yMin": -1,
-                          "yMax": 12
+                          "xMax": 9,
+                          "yMin": -0.5,
+                          "yMax": 20
                         },
-                        "model": "p * x"
+                        "curves": [
+                          {
+                            "expr": "2*x",
+                            "label": "Tốc độ đều: f(t) = 2t",
+                            "color": "#3b82f6",
+                            "style": "solid",
+                            "width": 2
+                          },
+                          {
+                            "expr": "0.1*p*x*x",
+                            "label": "Tốc độ tăng dần: g(t) = ½·a·t²",
+                            "color": "#f97316",
+                            "style": "solid",
+                            "width": 2
+                          }
+                        ],
+                        "prompt": "Đường xanh = vật đi tốc độ đều 2 m/s (thẳng). Đường cam = vật tăng tốc liên tục (cong). Kéo gia tốc để thay đổi đường cam. Chú ý sự khác nhau về hình dạng."
                       },
                       "reflections": [
                         {
                           "id": "slow",
-                          "trigger": "state.currentValue < 1",
-                          "text": "Đường thẳng thoải — tốc độ thấp. Vị trí thay đổi chậm theo thời gian."
+                          "trigger": "state.currentValue < 0.8",
+                          "text": "Gia tốc thấp — đường cam gần thẳng và thoải. Hai đường gần giống nhau. Tốc độ tăng rất chậm."
                         },
                         {
                           "id": "medium",
-                          "trigger": "state.currentValue > 1.8 && state.currentValue < 2.5",
-                          "text": "Đường thẳng — tốc độ không đổi. Mỗi giây, vật đi thêm cùng một quãng đường."
+                          "trigger": "state.currentValue >= 0.8 && state.currentValue <= 2.5",
+                          "text": "Đường xanh thẳng = mỗi giây, vật A đi thêm đúng 2 m. Đường cam cong = vật B ngày càng nhanh hơn. Hình dạng khác nhau vì bản chất chuyển động khác nhau."
                         },
                         {
                           "id": "fast",
-                          "trigger": "state.currentValue > 3.5",
-                          "text": "Đường thẳng dốc — tốc độ cao. Vị trí thay đổi nhanh nhưng vẫn đều."
+                          "trigger": "state.currentValue > 2.5",
+                          "text": "Gia tốc cao — đường cam rất dốc về cuối, vượt qua đường xanh. Sau t = {eval:Math.round(2/(0.1*p)*10)/10} giây, vật B sẽ nhanh hơn vật A."
                         }
-                      ],
-                      "prompt": "Kéo thanh trượt để thay đổi tốc độ. Đường thẳng thay đổi thế nào? Điều gì không đổi về hình dạng?"
+                      ]
                     }
                   }
                 }
@@ -2342,8 +2434,8 @@
                   "content": {
                     "heading": "Tốc độ không đổi: đồ thị thẳng",
                     "paragraphs": [
-                      "Khi vật đi với <b>tốc độ không đổi</b>, vị trí $f(t)$ là hàm tuyến tính: $f(t) = v \\cdot t$. Đồ thị là đường thẳng. Độ dốc đường thẳng <b>chính là tốc độ</b>.",
-                      "Mỗi giây, vật đi thêm cùng một quãng đường. Không có tăng tốc, không có giảm tốc."
+                      "Đường xanh $f(t) = 2t$ là hàm tuyến tính. Độ dốc của đường thẳng là <b>tốc độ</b> của vật — và độ dốc này không thay đổi. Mỗi giây, vật đi thêm đúng 2 m. Không tăng tốc, không giảm tốc.",
+                      "Cát tuyến trên bất kỳ khoảng nào của đường thẳng đều cho cùng độ dốc — vận tốc trung bình không phụ thuộc vào khoảng bạn chọn."
                     ]
                   }
                 }
@@ -2358,8 +2450,8 @@
                   "content": {
                     "heading": "Tốc độ thay đổi: đồ thị cong",
                     "paragraphs": [
-                      "Khi tốc độ <b>thay đổi</b>, đồ thị $f(t)$ là <b>đường cong</b>. Nơi đường cong dốc hơn, vật đi nhanh hơn. Nơi đường cong thoải hơn, vật chậm lại.",
-                      "Đường cong ẩn chứa thông tin mà đường thẳng không có: tốc độ thay đổi liên tục tại mỗi thời điểm."
+                      "Đường cam $g(t) = \\frac{1}{2}at^2$ là parabol. Không một đường thẳng nào có thể mô tả đường cong này trọn vẹn. Nơi đường cam dốc hơn, vật đang đi nhanh hơn. Đường cong là bằng chứng học viện của sự thay đổi tốc độ.",
+                      "Khác biệt mấu chốt: đường <b>thẳng</b> → tốc độ không đổi. Đường <b>cong</b> → tốc độ thay đổi. Hình dạng của đồ thị mã hoá thông tin về chất lượng chuyển động — không chỉ vị trí."
                     ]
                   }
                 }
@@ -2468,27 +2560,27 @@
                   "id": "quiz-l2-4",
                   "type": "quiz",
                   "content": {
-                    "question": "Khi kéo thanh trượt tốc độ lên cao, đồ thị thay đổi thế nào?",
+                    "question": "Khi kéo thanh trượt gia tốc lên cao, điều gì xảy ra với đường cam?",
                     "options": [
                       {
                         "value": "a",
-                        "label": "Đường thẳng xoay, trở nên dốc hơn."
+                        "label": "Đường cam xoay, trở nên dốc hơn ở cuối đoạn."
                       },
                       {
                         "value": "b",
-                        "label": "Đường thẳng dịch sang phải."
+                        "label": "Đường cam dịch sang phải."
                       },
                       {
                         "value": "c",
-                        "label": "Đường thẳng trở thành đường cong."
+                        "label": "Đường cam trở thành đường thẳng."
                       },
                       {
                         "value": "d",
-                        "label": "Đường thẳng không đổi."
+                        "label": "Đường cam không đổi."
                       }
                     ],
                     "correct": "a",
-                    "explanation": "Tốc độ lớn hơn → độ dốc lớn hơn → đường thẳng quay dốc lên quanh gốc tọa độ."
+                    "explanation": "Gia tốc lớn hơn → vật tăng tốc mạnh hơn → đường cong dốc dần nhanh hơn. Đường xanh không đổi vì nó là tốc độ đều cố định."
                   }
                 }
               ]
@@ -2709,22 +2801,22 @@
                         "triggers": [
                           {
                             "type": "timeReached",
-                            "value": 4.0,
-                            "message": "Đồ thị dốc xuống — vật đang đi theo chiều âm, trở về vị trí ban đầu."
+                            "value": 1.0,
+                            "message": "Đồ thị đang dốc lên rất nhanh — vật di chuyển nhanh theo chiều dương. Đường dốc = vật nhanh."
                           },
                           {
                             "type": "timeReached",
                             "value": 2.5,
-                            "message": "Đồ thị nằm ngang — vật đứng yên trong thoáng chốc trước khi đổi chiều."
+                            "message": "Đồ thị nằm ngang tại đỉnh — vật đứng yên thoáng chốc. Vị trí không đổi."
                           },
                           {
                             "type": "timeReached",
-                            "value": 1.0,
-                            "message": "Đồ thị dốc lên — vật đang di chuyển nhanh theo chiều dương."
+                            "value": 4.0,
+                            "message": "Đồ thị dốc xuống — vật đang quay lại. f(t) giảm = vị trí giảm = đi ngược chiều."
                           }
                         ]
                       },
-                      "prompt": "Quan sát cả hai bảng khi hoạt hình chạy. Khi nào vật di chuyển nhanh nhất? Khi nào vật đứng yên? Đặc điểm nào của đồ thị tương ứng với mỗi thời điểm đó?"
+                      "prompt": "Khi hoạt hình chạy, hãy quan sát độ dốc của đường cong thay đổi thế nào. Khi nào đường dốc nhất? Khi nào nằm ngang? Điều đó cho biết gì về tốc độ của vật?"
                     }
                   }
                 }
@@ -2965,30 +3057,30 @@
               "order_index": 9,
               "blocks": [
                 {
-                  "id": "quiz-7-nhiet-do",
+                  "id": "quiz-7-toc-do-tu-do-thi",
                   "type": "quiz",
                   "content": {
-                    "question": "Một trạm khí tượng ghi nhiệt độ $T(t)$ theo giờ. Đồ thị của $T(t)$ nằm ngang từ $t = 2$ đến $t = 4$. Điều này có nghĩa là gì?",
+                    "question": "Tại $t = 1$, đồ thị $f(t)$ dốc hơn so với tại $t = 4$. Kết luận gì về tốc độ?",
                     "options": [
                       {
                         "value": "a",
-                        "label": "Nhiệt độ bằng 0 trong khoảng đó."
+                        "label": "Vật nhanh hơn tại $t = 1$ so với $t = 4$."
                       },
                       {
                         "value": "b",
-                        "label": "Nhiệt kế bị hỏng."
+                        "label": "Vật chậm hơn tại $t = 1$ so với $t = 4$."
                       },
                       {
                         "value": "c",
-                        "label": "Thời gian không trôi từ $t = 2$ đến $t = 4$."
+                        "label": "Độ dốc không liên quan đến tốc độ."
                       },
                       {
                         "value": "d",
-                        "label": "Nhiệt độ không thay đổi trong khoảng đó — là hằng số."
+                        "label": "Cần biết vị trí cụ thể mới kết luận được."
                       }
                     ],
-                    "correct": "d",
-                    "explanation": "Quy tắc đọc đồ thị áp dụng cho mọi hàm số: đồ thị nằm ngang → giá trị đầu ra không đổi. Ở đây, nhiệt độ duy trì ổn định trong $[2, 4]$."
+                    "correct": "a",
+                    "explanation": "Đồ thị dốc hơn = vị trí thay đổi nhanh hơn theo thời gian = vật đang di chuyển nhanh hơn. Độ dốc của $f(t)$ TẠI MỘT THỜI ĐIỂM chính là tốc độ tức thời."
                   }
                 }
               ]

@@ -16,7 +16,7 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Giá trị f(2)"
+                                "parameterLabel": "Kéo điểm đỏ ● lên xuống"
                             },
                             "parameter": {
                                 "min": 0,
@@ -43,20 +43,20 @@
                                 {
                                     "id": "mismatch",
                                     "trigger": "state.currentValue > 4 && state.currentValue < 6",
-                                    "text": "f(2) = 5 nhưng đường cong tiến về 3. Giới hạn ≠ giá trị hàm — giới hạn đọc từ đường cong."
+                                    "text": "Bạn đặt điểm đỏ ● ở y = {p} — nhưng đường cong xanh tiến về y = 3 tại x = 2. Giới hạn = 3 (theo đường cong), không phải {p} (theo điểm đỏ)."
                                 },
                                 {
                                     "id": "match",
                                     "trigger": "state.currentValue > 2.8 && state.currentValue < 3.2",
-                                    "text": "f(2) = 3 = giới hạn. Khi điểm nằm trên đường cong, hàm liên tục tại x = 2."
+                                    "text": "Điểm đỏ ● nằm ngay trên đường cong! Khi f(2) = giới hạn = 3, ta nói hàm liên tục tại x = 2. Không có 'lỗ hổng' nào."
                                 },
                                 {
                                     "id": "far",
                                     "trigger": "state.currentValue > 6",
-                                    "text": "Điểm rất xa đường cong, nhưng giới hạn vẫn là 3. Giới hạn phụ thuộc đường cong, không phải điểm."
+                                    "text": "Điểm đỏ ● rất xa đường cong, nhưng giới hạn vẫn là 3! Giới hạn chỉ phụ thuộc vào đường cong tiến về đâu, không quan tâm điểm đỏ nằm ở đâu."
                                 }
                             ],
-                            "prompt": "Kéo f(2) lên xuống. Giới hạn có thay đổi theo không?"
+                            "prompt": "Trên đồ thị có đường cong xanh y = x + 1 với một lỗ trống ○ tại x = 2.\n\n🔴 Điểm đỏ ● biểu thị giá trị f(2) — bạn có thể kéo nó lên xuống.\n🎯 Hỏi: Dù bạn kéo điểm đỏ đi đâu, giới hạn của hàm tại x = 2 có thay đổi không?\n\nGợi ý: Giới hạn = nơi đường cong hướng tới, không phải nơi điểm đỏ nằm!"
                         }
                     }
                 }
@@ -69,10 +69,10 @@
                     "id": "text-doc-gioi-han",
                     "type": "text",
                     "content": {
-                        "heading": "Đọc giới hạn từ đồ thị",
+                        "heading": "Đọc giới hạn = theo dõi đường cong",
                         "paragraphs": [
-                            "Để tìm $\\lim_{x \\to a} f(x)$ từ đồ thị: đi theo đường cong từ cả hai phía về $x = a$. Giá trị $y$ mà đường cong tiến đến chính là giới hạn.",
-                            "Bỏ qua mọi điểm cô lập tại $x = a$ — điểm đó biểu diễn $f(a)$, có thể khác giới hạn."
+                            "Để tìm $\\lim_{x \\to a} f(x)$ từ đồ thị: <b>bỏ qua điểm</b> (●) tại $x = a$ và <b>đi theo đường cong</b> từ cả hai phía. Giá trị $y$ mà đường cong tiến đến chính là giới hạn.",
+                            "Trong tương tác: đường cong $y = x+1$ luôn tiến về $y = 3$ tại $x = 2$, bất kể bạn kéo điểm ● lên đâu. Điểm đó biểu diễn $f(2)$ — có thể khác giới hạn."
                         ]
                     }
                 }
@@ -85,9 +85,10 @@
                     "id": "text-vong-tron",
                     "type": "text",
                     "content": {
-                        "heading": "Vòng tròn rỗng và đặc",
+                        "heading": "Vòng tròn rỗng ○ và đặc ●",
                         "paragraphs": [
-                            "○ tại $(a, L)$: đường cong tiến về $L$ nhưng $f(a) \\neq L$. ● tại $(a, M)$: $f(a) = M$. Giới hạn phụ thuộc vào đường cong, không phải điểm."
+                            "Trên đồ thị: ○ tại $(a, L)$ nghĩa là đường cong tiến về $L$ nhưng $f(a) \\neq L$ (hoặc không xác định). ● tại $(a, M)$ nghĩa là $f(a) = M$.",
+                            "Giới hạn phụ thuộc vào ○ (nơi đường cong hướng tới), không phải ● (nơi điểm nằm). Đây là lý do bạn có thể kéo ● tùy ý mà giới hạn không đổi."
                         ]
                     }
                 }

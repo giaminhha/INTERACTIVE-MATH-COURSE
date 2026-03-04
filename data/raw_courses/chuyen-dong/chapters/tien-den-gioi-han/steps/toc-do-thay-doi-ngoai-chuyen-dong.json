@@ -37,20 +37,20 @@
                                 {
                                     "id": "small",
                                     "trigger": "state.currentValue < 1.2",
-                                    "text": "Δy/Δx nhỏ — đường cong gần bằng phẳng ở đây. Trong chuyển động: vật chậm. Kinh doanh: chi phí thay đổi ít."
+                                    "text": "Δy/Δx nhỏ — khoảng [0, b] ngắn. Với f(t)=t², vận tốc TB trên [0, b] = b. Kéo b sang phải để thấy tỷ số tăng dần."
                                 },
                                 {
                                     "id": "medium",
                                     "trigger": "state.currentValue > 1.8 && state.currentValue < 2.5",
-                                    "text": "Δy/Δx ≈ 2–3. Cùng công thức cho mọi ngữ cảnh: vận tốc, tốc độ tăng nhiệt, chi phí biên."
+                                    "text": "Δy/Δx ≈ 2. Tốc độ trung bình của chuyển động f(t)=t² trên khoảng này. Cùng công thức này đo tốc độ thay đổi của bất kỳ đại lượng nào."
                                 },
                                 {
                                     "id": "large",
                                     "trigger": "state.currentValue > 3.5",
-                                    "text": "Δy/Δx lớn — đường cong dốc. Cấu trúc (thay đổi đầu ra)/(thay đổi đầu vào) luôn giống nhau."
+                                    "text": "Δy/Δx lớn — khoảng dài. Vật đang tăng tốc liên tục (đường cong dốc dần), nhưng cát tuyến chỉ cho một con số trung bình — đó là giới hạn của phép đo trên khoảng."
                                 }
                             ],
-                            "prompt": "Kéo b để thay đổi khoảng. Tỷ số Δy/Δx thay đổi thế nào? Nó đo gì nếu y là khoảng cách? Nếu y là nhiệt độ? Nếu y là chi phí?"
+                            "prompt": "Với $f(t) = t^2$, kéo b để thay đổi khoảng. Tỉ số Δy/Δx thay đổi thế nào? Đọc giá trị độ dốc: nó đo tốc độ thay đổi trung bình trên khoảng [0, b]. Cè xét: công thức này có thay đổi gì nếu y không phải vị trí mà là nhiệt độ, dân số, hay bất cứ đại lượng nào khác?"
                         }
                     }
                 }
@@ -63,10 +63,10 @@
                     "id": "text-cau-truc-pho-quat",
                     "type": "text",
                     "content": {
-                        "heading": "Δy/Δx: cấu trúc phổ quát",
+                        "heading": "Δy/Δx: cùng cấu trúc, mọi ngữ cảnh",
                         "paragraphs": [
-                            "Tỷ số $\\frac{\\Delta y}{\\Delta x} = \\frac{y_2 - y_1}{x_2 - x_1}$ đo lượng y thay đổi bao nhiêu trên mỗi đơn vị thay đổi của x. Cấu trúc này giống hệt nhau trong mọi ngữ cảnh:",
-                            "Chuyển động: $\\Delta f / \\Delta t$ = vận tốc trung bình (m/s). Nhiệt độ: $\\Delta T / \\Delta t$ (°C/h). Chi phí: $\\Delta C / \\Delta q$ ($/đơn vị). Công thức không thuộc về vật lý — nó thuộc về mọi mối quan hệ giữa hai đại lượng thay đổi."
+                            "Trong toàn bộ khóa học này, ta đã dùng $\\frac{\\Delta f}{\\Delta t}$ cho chuyển động. Nhưng cấu trúc $\\frac{\\Delta y}{\\Delta x} = \\frac{y_2 - y_1}{x_2 - x_1}$ không thuộc riêng về vật lý — nó đo tốc độ thay đổi của bất kỳ đại lượng nào theo bất kỳ đại lượng nào khác.",
+                            "Nhiệt độ: $\\Delta T / \\Delta t$ (°C/h). Dân số: $\\Delta P / \\Delta t$ (người/năm). Ví dụ có thể thay đổi — nhưng phép tính luôn là: (thay đổi đầu ra) ÷ (thay đổi đầu vào)."
                         ]
                     }
                 },
@@ -198,27 +198,27 @@
                     "id": "quiz-l8-4",
                     "type": "quiz",
                     "content": {
-                        "question": "Trong chuyển động, $\\Delta f / \\Delta t = 3$ m/s. Trong kinh doanh, $\\Delta C / \\Delta q = 3$ $/đơn vị nghĩa là:",
+                        "question": "Với $f(t) = t^2$, tốc độ trung bình trên $[0, 3]$ là 3 m/s, trên $[0, 1]$ là 1 m/s. Dãy nào nào giải thích điều này?",
                         "options": [
                             {
                                 "value": "a",
-                                "label": "Công ty lãi 3 đô la."
+                                "label": "Vận tốc tốc là hằng số theo thời gian."
                             },
                             {
                                 "value": "b",
-                                "label": "Sản lượng là 3 đơn vị."
+                                "label": "Vận tốc tăng dần, nên khoảng dài hơn cho trung bình cao hơn."
                             },
                             {
                                 "value": "c",
-                                "label": "Mỗi đơn vị sản xuất thêm tốn trung bình 3 đô la trên khoảng đã cho."
+                                "label": "Hai giá trị này là ngẫu nhiên."
                             },
                             {
                                 "value": "d",
-                                "label": "Chi phí cố định tại 3 đô la."
+                                "label": "Công thức $\\Delta f / \\Delta t$ bị áp dụng sai."
                             }
                         ],
-                        "correct": "c",
-                        "explanation": "Cùng công thức, khác ý nghĩa vật lý: tỷ số đo thay đổi trên mỗi đơn vị."
+                        "correct": "b",
+                        "explanation": "$f(t) = t^2$ tăng tốc: vận tốc tại $t=1$ là 2 m/s, tại $t=3$ là 6 m/s. Khoảng dài hơn bắt đầu bao gồm cả giai đoạn nhanh hơn, nên trung bình cao hơn."
                     }
                 }
             ]
@@ -262,27 +262,27 @@
                     "id": "quiz-l8-6",
                     "type": "quiz",
                     "content": {
-                        "question": "$\\Delta C / \\Delta q = -5$ $/đơn vị. Dấu âm nghĩa là gì?",
+                        "question": "$f(2) = 10$ m, $f(5) = 1$ m. Vận tốc trung bình trên $[2, 5]$? Dấu âm có ý nghĩa gì?",
                         "options": [
                             {
                                 "value": "a",
-                                "label": "Chi phí là âm — không thể xảy ra."
+                                "label": "$3$ m/s — vật đi từ 2 đến 5."
                             },
                             {
                                 "value": "b",
-                                "label": "Sản lượng $q$ đang giảm."
+                                "label": "$-3$ m/s — vật di chuyển ròng theo chiều âm, vị trí giảm."
                             },
                             {
                                 "value": "c",
-                                "label": "Chi phí trên mỗi đơn vị đang giảm khi sản lượng tăng."
+                                "label": "$-9$ m/s — vật rất nhanh."
                             },
                             {
                                 "value": "d",
-                                "label": "Công thức được áp dụng ngược."
+                                "label": "$0$ m/s — vật đứng yên."
                             }
                         ],
-                        "correct": "c",
-                        "explanation": "Dấu âm = đại lượng đầu ra giảm khi đại lượng đầu vào tăng."
+                        "correct": "b",
+                        "explanation": "$\\frac{1 - 10}{5 - 2} = \\frac{-9}{3} = -3$ m/s. Dấu âm = vị trí giảm = vật đang di chuyển ròng theo chiều âm."
                     }
                 }
             ]
@@ -294,27 +294,27 @@
                     "id": "quiz-l8-7",
                     "type": "quiz",
                     "content": {
-                        "question": "Cây cao từ 10 cm lên 28 cm trong 6 tuần. Tốc độ thay đổi chiều cao trung bình?",
+                        "question": "Với $f(t) = t^2$, khi thu nhỏ khoảng $[1, b]$ với $b \\to 1$, tốc độ trung bình tiến về giá trị nào?",
                         "options": [
                             {
                                 "value": "a",
-                                "label": "38 cm/tuần"
+                                "label": "0"
                             },
                             {
                                 "value": "b",
-                                "label": "28 cm/tuần"
+                                "label": "1"
                             },
                             {
                                 "value": "c",
-                                "label": "3 cm/tuần"
+                                "label": "2"
                             },
                             {
                                 "value": "d",
-                                "label": "18 cm"
+                                "label": "Không xác định — chia cho 0."
                             }
                         ],
                         "correct": "c",
-                        "explanation": "$\\frac{28 - 10}{6} = \\frac{18}{6} = 3$ cm/tuần."
+                        "explanation": "$\\frac{b^2 - 1}{b - 1} = b + 1 \\to 1 + 1 = 2$ khi $b \\to 1$. Đây chính là vận tốc tức thời tại $t = 1$ — khái niệm mà giới hạn sẽ chính thức hoá."
                     }
                 }
             ]

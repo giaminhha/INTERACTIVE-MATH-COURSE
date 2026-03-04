@@ -12,44 +12,55 @@
                     "id": "ia-rut-gon",
                     "type": "interaction",
                     "content": {
-                        "interactionType": "A",
+                        "interactionType": "B",
                         "lesson": {
-                            "interactionType": "A",
-                            "parameterSpec": {
-                                "resolutionLevels": [
-                                    1,
-                                    2,
-                                    4,
-                                    8,
-                                    16,
-                                    32,
-                                    64,
-                                    100
-                                ]
+                            "interactionType": "B",
+                            "meta": {
+                                "parameterLabel": "Di chuyển điểm x trên đường cong"
                             },
-                            "systemSpec": {
-                                "function": "x * x",
-                                "derivative": "2 * x",
-                                "domain": [
-                                    -2,
-                                    5
+                            "parameter": {
+                                "min": -1,
+                                "max": 5,
+                                "initial": 0
+                            },
+                            "system": {
+                                "resolution": 300,
+                                "view": {
+                                    "xMin": -2,
+                                    "xMax": 6,
+                                    "yMin": -1,
+                                    "yMax": 8
+                                },
+                                "curves": [
+                                    { "expr": "x + 2", "color": "#3b82f6", "label": "Rút gọn: x + 2", "width": 3 },
+                                    { "expr": "4", "color": "#10b981", "label": "Giới hạn = 4", "style": "dashed", "width": 1 }
                                 ],
-                                "range": [
-                                    -0.5,
-                                    26
-                                ],
-                                "anchor": 2
+                                "hole": { "x": 2 },
+                                "trackerDot": { "curveIndex": 0, "color": "#3b82f6" }
                             },
-                            "reflectionSpec": {
-                                "triggers": [
-                                    {
-                                        "condition": "state.resolution >= 50",
-                                        "message": "Δf/Δx → 4 — rút gọn (x²−4)/(x−2) = x+2 cũng cho 4 tại x=2. Đại số xác nhận giới hạn."
-                                    }
-                                ]
-                            },
-                            "prompt": "Tăng số điểm lấy mẫu. Δf/Δx tiến về giá trị nào khi khoảng thu nhỏ quanh x = 2?",
-                            "sliderLabel": "Độ chính xác"
+                            "reflections": [
+                                {
+                                    "id": "far-left",
+                                    "trigger": "state.currentValue < 0.5",
+                                    "text": "Tại x = {p}: biểu thức gốc ({eval:p*p}−4)/({p}−2) = {eval:(p*p-4)/(p-2)}. Rút gọn: {p}+2 = {eval:p+2}. Cùng kết quả! ✔️"
+                                },
+                                {
+                                    "id": "approaching",
+                                    "trigger": "state.currentValue > 1.5 && state.currentValue < 1.95",
+                                    "text": "x = {p} — gần lỗ trống rồi! Biểu thức gốc = {eval:(p*p-4)/(p-2)}, rút gọn = {eval:p+2}. Cả hai đều tiến về 4 khi x → 2!"
+                                },
+                                {
+                                    "id": "at-hole",
+                                    "trigger": "state.currentValue > 1.95 && state.currentValue < 2.05",
+                                    "text": "x ≈ 2: biểu thức gốc cho (4−4)/(2−2) = 0/0 — không tính được! Nhưng rút gọn: 2+2 = 4. Đó chính là giới hạn."
+                                },
+                                {
+                                    "id": "past",
+                                    "trigger": "state.currentValue > 3",
+                                    "text": "Tại x = {p}: biểu thức gốc = {eval:(p*p-4)/(p-2)}, rút gọn = {eval:p+2}. Bằng nhau tại mọi điểm trừ x = 2! Việc rút gọn là hợp lệ."
+                                }
+                            ],
+                            "prompt": "Đường cong xanh là đồ thị của (x²−4)/(x−2), với lỗ trống ○ tại x = 2 (vì mẫu = 0).\nĐường xanh lá nét đứt là y = 4 (giá trị giới hạn).\n\n🎯 Kéo thanh trượt để di chuyển điểm x dọc theo đường cong. So sánh giá trị của biểu thức gốc và biểu thức rút gọn (x+2). Chúng khác nhau ở đâu?"
                         }
                     }
                 }
@@ -62,9 +73,10 @@
                     "id": "text-tin-hieu",
                     "type": "text",
                     "content": {
-                        "heading": "Dạng 0/0 — tín hiệu, không phải câu trả lời",
+                        "heading": "0/0 là tín hiệu, không phải câu trả lời",
                         "paragraphs": [
-                            "Khi thế trực tiếp cho $0/0$, giới hạn là <b>bất định</b> — có thể là bất kỳ giá trị nào. Đây không phải câu trả lời mà là tín hiệu cần xử lý đại số."
+                            "Thế $x = 2$ vào $\\frac{x^2 - 4}{x - 2}$: tử = $4 - 4 = 0$, mẫu = $2 - 2 = 0$. Kết quả $0/0$ — không phải số, cũng không phải 'không tồn tại'. Đây là dạng <b>bất định</b>: tín hiệu rằng giới hạn CÓ THỂ tồn tại nhưng cần xử lý đại số.",
+                            "Trong tương tác, bạn thấy rằng ở mọi điểm trừ $x = 2$, biểu thức gốc và rút gọn cho cùng giá trị. Dạng $0/0$ chỉ xảy ra tại đúng điểm đó — lỗ trống trên đồ thị."
                         ]
                     }
                 }
@@ -77,10 +89,10 @@
                     "id": "text-phan-tich",
                     "type": "text",
                     "content": {
-                        "heading": "Phân tích, rút gọn, thế",
+                        "heading": "Phân tích → Rút gọn → Thế",
                         "paragraphs": [
-                            "$\\frac{x^2 - 4}{x - 2} = \\frac{(x-2)(x+2)}{x-2} = x + 2$ với $x \\neq 2$. Giờ $\\lim_{x \\to 2}(x+2) = 4$.",
-                            "Phép rút gọn loại bỏ nghiệm chung. Hợp lệ vì giới hạn xét lân cận $x = 2$, không phải tại $x = 2$."
+                            "Quy trình ba bước: (1) <b>Phân tích</b>: $x^2 - 4 = (x-2)(x+2)$. (2) <b>Rút gọn</b>: $\\frac{(x-2)(x+2)}{x-2} = x + 2$ khi $x \\neq 2$. (3) <b>Thế</b>: $\\lim_{x \\to 2}(x+2) = 4$.",
+                            "Phép rút gọn hợp lệ vì giới hạn chỉ xét lân cận $x = 2$, không phải tại $x = 2$. Hai hàm bằng nhau mọi nơi trừ một điểm → cùng giới hạn."
                         ]
                     }
                 },

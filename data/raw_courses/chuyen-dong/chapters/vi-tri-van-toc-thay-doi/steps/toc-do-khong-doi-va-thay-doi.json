@@ -16,10 +16,10 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Tốc độ (m/s)"
+                                "parameterLabel": "Gia tốc (m/s²)"
                             },
                             "parameter": {
-                                "min": 0.5,
+                                "min": 0.2,
                                 "max": 4,
                                 "initial": 2
                             },
@@ -27,30 +27,45 @@
                                 "resolution": 200,
                                 "view": {
                                     "xMin": 0,
-                                    "xMax": 5,
-                                    "yMin": -1,
-                                    "yMax": 12
+                                    "xMax": 9,
+                                    "yMin": -0.5,
+                                    "yMax": 20
                                 },
-                                "model": "p * x"
+                                "curves": [
+                                    {
+                                        "expr": "2*x",
+                                        "label": "Tốc độ đều: f(t) = 2t",
+                                        "color": "#3b82f6",
+                                        "style": "solid",
+                                        "width": 2
+                                    },
+                                    {
+                                        "expr": "0.1*p*x*x",
+                                        "label": "Tốc độ tăng dần: g(t) = ½·a·t²",
+                                        "color": "#f97316",
+                                        "style": "solid",
+                                        "width": 2
+                                    }
+                                ],
+                                "prompt": "Đường xanh = vật đi tốc độ đều 2 m/s (thẳng). Đường cam = vật tăng tốc liên tục (cong). Kéo gia tốc để thay đổi đường cam. Chú ý sự khác nhau về hình dạng."
                             },
                             "reflections": [
                                 {
                                     "id": "slow",
-                                    "trigger": "state.currentValue < 1",
-                                    "text": "Đường thẳng thoải — tốc độ thấp. Vị trí thay đổi chậm theo thời gian."
+                                    "trigger": "state.currentValue < 0.8",
+                                    "text": "Gia tốc thấp — đường cam gần thẳng và thoải. Hai đường gần giống nhau. Tốc độ tăng rất chậm."
                                 },
                                 {
                                     "id": "medium",
-                                    "trigger": "state.currentValue > 1.8 && state.currentValue < 2.5",
-                                    "text": "Đường thẳng — tốc độ không đổi. Mỗi giây, vật đi thêm cùng một quãng đường."
+                                    "trigger": "state.currentValue >= 0.8 && state.currentValue <= 2.5",
+                                    "text": "Đường xanh thẳng = mỗi giây, vật A đi thêm đúng 2 m. Đường cam cong = vật B ngày càng nhanh hơn. Hình dạng khác nhau vì bản chất chuyển động khác nhau."
                                 },
                                 {
                                     "id": "fast",
-                                    "trigger": "state.currentValue > 3.5",
-                                    "text": "Đường thẳng dốc — tốc độ cao. Vị trí thay đổi nhanh nhưng vẫn đều."
+                                    "trigger": "state.currentValue > 2.5",
+                                    "text": "Gia tốc cao — đường cam rất dốc về cuối, vượt qua đường xanh. Sau t = {eval:Math.round(2/(0.1*p)*10)/10} giây, vật B sẽ nhanh hơn vật A."
                                 }
-                            ],
-                            "prompt": "Kéo thanh trượt để thay đổi tốc độ. Đường thẳng thay đổi thế nào? Điều gì không đổi về hình dạng?"
+                            ]
                         }
                     }
                 }
@@ -65,8 +80,8 @@
                     "content": {
                         "heading": "Tốc độ không đổi: đồ thị thẳng",
                         "paragraphs": [
-                            "Khi vật đi với <b>tốc độ không đổi</b>, vị trí $f(t)$ là hàm tuyến tính: $f(t) = v \\cdot t$. Đồ thị là đường thẳng. Độ dốc đường thẳng <b>chính là tốc độ</b>.",
-                            "Mỗi giây, vật đi thêm cùng một quãng đường. Không có tăng tốc, không có giảm tốc."
+                            "Đường xanh $f(t) = 2t$ là hàm tuyến tính. Độ dốc của đường thẳng là <b>tốc độ</b> của vật — và độ dốc này không thay đổi. Mỗi giây, vật đi thêm đúng 2 m. Không tăng tốc, không giảm tốc.",
+                            "Cát tuyến trên bất kỳ khoảng nào của đường thẳng đều cho cùng độ dốc — vận tốc trung bình không phụ thuộc vào khoảng bạn chọn."
                         ]
                     }
                 }
@@ -81,8 +96,8 @@
                     "content": {
                         "heading": "Tốc độ thay đổi: đồ thị cong",
                         "paragraphs": [
-                            "Khi tốc độ <b>thay đổi</b>, đồ thị $f(t)$ là <b>đường cong</b>. Nơi đường cong dốc hơn, vật đi nhanh hơn. Nơi đường cong thoải hơn, vật chậm lại.",
-                            "Đường cong ẩn chứa thông tin mà đường thẳng không có: tốc độ thay đổi liên tục tại mỗi thời điểm."
+                            "Đường cam $g(t) = \\frac{1}{2}at^2$ là parabol. Không một đường thẳng nào có thể mô tả đường cong này trọn vẹn. Nơi đường cam dốc hơn, vật đang đi nhanh hơn. Đường cong là bằng chứng học viện của sự thay đổi tốc độ.",
+                            "Khác biệt mấu chốt: đường <b>thẳng</b> → tốc độ không đổi. Đường <b>cong</b> → tốc độ thay đổi. Hình dạng của đồ thị mã hoá thông tin về chất lượng chuyển động — không chỉ vị trí."
                         ]
                     }
                 }
@@ -191,27 +206,27 @@
                     "id": "quiz-l2-4",
                     "type": "quiz",
                     "content": {
-                        "question": "Khi kéo thanh trượt tốc độ lên cao, đồ thị thay đổi thế nào?",
+                        "question": "Khi kéo thanh trượt gia tốc lên cao, điều gì xảy ra với đường cam?",
                         "options": [
                             {
                                 "value": "a",
-                                "label": "Đường thẳng xoay, trở nên dốc hơn."
+                                "label": "Đường cam xoay, trở nên dốc hơn ở cuối đoạn."
                             },
                             {
                                 "value": "b",
-                                "label": "Đường thẳng dịch sang phải."
+                                "label": "Đường cam dịch sang phải."
                             },
                             {
                                 "value": "c",
-                                "label": "Đường thẳng trở thành đường cong."
+                                "label": "Đường cam trở thành đường thẳng."
                             },
                             {
                                 "value": "d",
-                                "label": "Đường thẳng không đổi."
+                                "label": "Đường cam không đổi."
                             }
                         ],
                         "correct": "a",
-                        "explanation": "Tốc độ lớn hơn → độ dốc lớn hơn → đường thẳng quay dốc lên quanh gốc tọa độ."
+                        "explanation": "Gia tốc lớn hơn → vật tăng tốc mạnh hơn → đường cong dốc dần nhanh hơn. Đường xanh không đổi vì nó là tốc độ đều cố định."
                     }
                 }
             ]

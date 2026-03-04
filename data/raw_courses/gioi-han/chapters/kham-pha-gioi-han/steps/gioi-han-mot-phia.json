@@ -16,7 +16,7 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Độ lệch bên phải"
+                                "parameterLabel": "Dịch nhánh phải lên/xuống"
                             },
                             "parameter": {
                                 "min": -2,
@@ -37,20 +37,20 @@
                                 {
                                     "id": "jump",
                                     "trigger": "state.currentValue > -0.5 && state.currentValue < 0.5",
-                                    "text": "Bên trái → 5, bên phải → 4. Hai giới hạn một phía khác nhau → giới hạn hai phía không tồn tại."
+                                    "text": "Hai nhánh không nối với nhau! Từ bên trái, đường cong tiến về 5. Từ bên phải, tiến về 4. Hai hướng cho kết quả khác nhau → giới hạn không tồn tại."
                                 },
                                 {
                                     "id": "match",
                                     "trigger": "state.currentValue > 0.8 && state.currentValue < 1.2",
-                                    "text": "Bên trái → 5, bên phải → 5. Hai phía đồng ý → giới hạn hai phía tồn tại và bằng 5."
+                                    "text": "Hai nhánh gặp nhau! Cả hai bên đều tiến về 5 tại x = 2. Khi trái và phải đồng ý → giới hạn tồn tại và bằng 5."
                                 },
                                 {
                                     "id": "big-gap",
                                     "trigger": "state.currentValue < -1",
-                                    "text": "Khoảng nhảy lớn — hai phía hoàn toàn bất đồng."
+                                    "text": "Khoảng cách giữa hai nhánh rất lớn — hai phía hoàn toàn bất đồng. Giới hạn không tồn tại."
                                 }
                             ],
-                            "prompt": "Kéo thanh trượt để thay đổi độ lệch nhánh phải. Khi nào hai nhánh 'gặp nhau' tại x = 2?"
+                            "prompt": "Đồ thị gồm hai nhánh tại x = 2:\n• Nhánh trái (x < 2): đường 2x + 1, tiến về y = 5\n• Nhánh phải (x > 2): đường x² + p, bạn điều chỉnh được\n\n🎯 Kéo thanh trượt để dịch nhánh phải lên xuống. Tìm giá trị p sao cho hai nhánh 'gặp nhau' tại x = 2 — khi đó giới hạn tồn tại!"
                         }
                     }
                 }
@@ -63,10 +63,10 @@
                     "id": "text-ky-hieu-mot-phia",
                     "type": "text",
                     "content": {
-                        "heading": "Ký hiệu giới hạn một phía",
+                        "heading": "Hai hướng, hai câu trả lời",
                         "paragraphs": [
-                            "Khi hai hướng tiếp cận cho giá trị khác nhau, ta dùng: $\\lim_{x \\to a^-} f(x)$ (giới hạn trái) và $\\lim_{x \\to a^+} f(x)$ (giới hạn phải). Dấu $-$ hoặc $+$ chỉ hướng tiếp cận.",
-                            "Ví dụ: $\\lim_{x \\to 2^-} f(x) = 5$ (từ bên trái) và $\\lim_{x \\to 2^+} f(x) = 4$ (từ bên phải) khi $p = 0$."
+                            "Hàm từ ng khúc có thể cho giá trị khác nhau tùy hướng tiếp cận. Ký hiệu: $\\lim_{x \\to a^-} f(x)$ (giới hạn <b>trái</b> — x tiến từ giá trị nhỏ hơn) và $\\lim_{x \\to a^+} f(x)$ (giới hạn <b>phải</b> — x tiến từ giá trị lớn hơn).",
+                            "Trong tương tác với $p = 0$: nhánh trái $2x+1 \\to 5$ và nhánh phải $x^2 \\to 4$ khi $x \\to 2$. Hai phía bất đồng!"
                         ]
                     }
                 }
@@ -79,9 +79,10 @@
                     "id": "text-dieu-kien-ton-tai",
                     "type": "text",
                     "content": {
-                        "heading": "Điều kiện tồn tại",
+                        "heading": "Giới hạn tồn tại ⇔ hai phía đồng ý",
                         "paragraphs": [
-                            "$\\lim_{x \\to a} f(x)$ tồn tại khi và chỉ khi $\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$. Khi hai phía bất đồng, giới hạn hai phía <b>không tồn tại</b>."
+                            "$\\lim_{x \\to a} f(x)$ tồn tại khi và chỉ khi $\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x)$. Kéo thanh trượt đến $p = 1$ để hai nhánh gặp nhau: cả hai → 5, giới hạn tồn tại và bằng 5.",
+                            "Kéo $p$ lên hoặc xuống khỏi 1: khoảng cách xuất hiện giữa hai nhánh → giới hạn <b>không tồn tại</b>."
                         ]
                     }
                 }

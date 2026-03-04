@@ -42,8 +42,28 @@
                             "reflectionSpec": {
                                 "triggers": [
                                     {
+                                        "condition": "state.resolution <= 1",
+                                        "message": "Δt = 1 — khoảng rộng: cát tuyến từ t=1 đến t=2. Độ dốc = (4−1)/1 = 3. Rất xa giá trị đích."
+                                    },
+                                    {
+                                        "condition": "state.resolution == 2",
+                                        "message": "Δt = 0.5 — cát tuyến từ t=1 đến t=1.5. Độ dốc = (2.25−1)/0.5 = 2.5. Đang tiến về 2."
+                                    },
+                                    {
+                                        "condition": "state.resolution >= 5 && state.resolution < 10",
+                                        "message": "Δt ≈ 0.2 — độ dốc ≈ 2.2. Hội tụ rõ ràng: mỗi lần kéo thêm một bậc, giá trị gần hơn."
+                                    },
+                                    {
+                                        "condition": "state.resolution >= 10 && state.resolution < 50",
+                                        "message": "Δt ≈ 0.1 — độ dốc ≈ 2.1. Dãy: 3, 2.5, 2.2, 2.1… xu hướng tiến về 2 là không thể phủ nhận."
+                                    },
+                                    {
+                                        "condition": "state.resolution >= 50 && state.resolution < 100",
+                                        "message": "Δt ≈ 0.02 — độ dốc ≈ 2.02. Gần ổn định: cát tuyến gần như trùng tiếp tuyến tại t = 1."
+                                    },
+                                    {
                                         "condition": "state.resolution >= 100",
-                                        "message": "Độ dốc ≈ 2.00 — sai số gần bằng 0. Giá trị đang ổn định."
+                                        "message": "Δt = 0.01 — độ dốc ≈ 2.01. Sai số gần bằng 0. Giá trị hội tụ về 2 — đây là tốc độ tức thời tại t = 1."
                                     }
                                 ]
                             }
@@ -59,10 +79,10 @@
                     "id": "text-hoi-tu",
                     "type": "text",
                     "content": {
-                        "heading": "Quy luật hội tụ",
+                        "heading": "Dãy số hội tụ về 2",
                         "paragraphs": [
-                            "Khi $\\Delta t$ giảm, độ dốc cát tuyến $\\Delta f / \\Delta t$ thay đổi — nhưng không hỗn loạn. Với $f(t) = t^2$ tại $a = 1$: $\\Delta t = 1 \\to$ độ dốc = 3; $\\Delta t = 0.1 \\to$ 2.1; $\\Delta t = 0.01 \\to$ 2.01.",
-                            "Các giá trị tiến đến 2. Hiện tượng này — một đại lượng ổn định khi đại lượng khác tiến về 0 — sẽ được đặt tên chính xác ở Module tiếp theo."
+                            "Với $f(t) = t^2$ tại $a = 1$, lưới Đầu tiên của Δt và độ dốc cát tuyến: $\\Delta t = 1 \\to 3$; $0.5 \\to 2.5$; $0.2 \\to 2.2$; $0.1 \\to 2.1$; $0.02 \\to 2.02$; $0.01 \\to 2.01$.",
+                            "Công thức chính xác: khi $\\Delta t \\to 0$, độ dốc = $\\frac{(1+\\Delta t)^2 - 1}{\\Delta t} = 2 + \\Delta t \\to 2$. Các giá trị tiến đến 2 — nhưng không bao giờ bằng 2 khi $\\Delta t > 0$. Hiện tượng này có tên gọi chính xác: <b>giới hạn</b>."
                         ]
                     }
                 }

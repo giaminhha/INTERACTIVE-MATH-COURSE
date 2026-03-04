@@ -16,41 +16,74 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Độ cong"
+                                "parameterLabel": "Thời điểm cuối b (giây)"
                             },
                             "parameter": {
-                                "min": 0.2,
-                                "max": 2,
-                                "initial": 1
+                                "min": 1,
+                                "max": 9,
+                                "initial": 3
                             },
                             "system": {
                                 "resolution": 200,
                                 "view": {
                                     "xMin": 0,
-                                    "xMax": 5.5,
-                                    "yMin": -1,
-                                    "yMax": 14
+                                    "xMax": 10,
+                                    "yMin": -3,
+                                    "yMax": 5
                                 },
-                                "model": "-0.5 * p * x * x + 5 * x"
+                                "curves": [
+                                    {
+                                        "expr": "-0.25*x*x + 2*x",
+                                        "label": "Vị trí vật theo thời gian",
+                                        "color": "#3b82f6",
+                                        "style": "solid",
+                                        "width": 2
+                                    },
+                                    {
+                                        "expr": "(-0.25*p + 2)*x",
+                                        "label": "Đường thẳng nối điểm đầu và điểm cuối",
+                                        "color": "#ef4444",
+                                        "style": "dashed",
+                                        "width": 2
+                                    }
+                                ],
+                                "approachPoint": {
+                                    "x": "p",
+                                    "label": "b"
+                                },
+                                "annotations": [
+                                    {
+                                        "type": "limitValue",
+                                        "expr": "-0.25*p + 2",
+                                        "at": "p",
+                                        "label": "Vận tốc trung bình = {value} m/s",
+                                        "color": "#ef4444"
+                                    }
+                                ],
+                                "prompt": "Vật được ném lên: đi về phía trước rồi quay lại. Đường đỏ nối vị trí ban đầu với vị trí tại thời điểm b. Độ dốc của đường đỏ = vận tốc trung bình. Kéo b để quan sát: khi nào đường đỏ nằm ngang? Khi nào dốc xuống?"
                             },
                             "reflections": [
                                 {
-                                    "id": "flat",
-                                    "trigger": "state.currentValue < 0.4",
-                                    "text": "Đường gần thẳng → cát tuyến gần trùng đường cong. Vận tốc trung bình ≈ hằng số."
+                                    "id": "going-forward",
+                                    "trigger": "state.currentValue < 4",
+                                    "text": "Vật đang đi về phía trước. Đường đỏ dốc lên: vận tốc TB = {eval:Math.round((-0.25*p+2)*10)/10} m/s (dương)."
                                 },
                                 {
-                                    "id": "mid",
-                                    "trigger": "state.currentValue > 0.8 && state.currentValue < 1.2",
-                                    "text": "Đường cong vừa phải — cát tuyến trên các khoảng khác nhau cho độ dốc khác nhau = vận tốc trung bình khác nhau."
+                                    "id": "returning",
+                                    "trigger": "state.currentValue >= 4 && state.currentValue < 7.5",
+                                    "text": "Vật đã đạt đỉnh và đang quay lại. Dù vật đổi chiều, vận tốc TB = {eval:Math.round((-0.25*p+2)*10)/10} m/s vẫn dương — vì xét ròng, vật vẫn ở phía trước so với điểm xuất phát."
                                 },
                                 {
-                                    "id": "steep",
-                                    "trigger": "state.currentValue > 1.7",
-                                    "text": "Đường cong rất cong — cát tuyến dốc lên ở đầu, dốc xuống ở cuối. Dấu vận tốc trung bình đổi!"
+                                    "id": "near-zero",
+                                    "trigger": "state.currentValue >= 7.5 && state.currentValue <= 8.5",
+                                    "text": "Đường đỏ gần nằm ngang! VTB ≈ {eval:Math.round((-0.25*p+2)*10)/10} m/s, tiến về 0. Tại b = 8, vật về đúng nơi xuất phát: dịch chuyển ròng = 0 → vận tốc TB = 0."
+                                },
+                                {
+                                    "id": "negative",
+                                    "trigger": "state.currentValue > 8.5",
+                                    "text": "Đường đỏ dốc xuống! VTB = {eval:Math.round((-0.25*p+2)*10)/10} m/s < 0. Vật đã vượt qua điểm xuất phát về phía ngược lại — dịch chuyển ròng âm."
                                 }
-                            ],
-                            "prompt": "Thay đổi độ cong. Khi nào cát tuyến dốc lên? Dốc xuống? Vận tốc trung bình (Δf/Δt) dương hay âm?"
+                            ]
                         }
                     }
                 }
@@ -63,10 +96,10 @@
                     "id": "text-vtb-dinh-nghia",
                     "type": "text",
                     "content": {
-                        "heading": "Định nghĩa vận tốc trung bình",
+                        "heading": "Đường nối hai điểm = hình học của vận tốc trung bình",
                         "paragraphs": [
-                            "Vận tốc trung bình trên $[a, b]$: $\\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a}$. Đây là <b>độ dốc cát tuyến</b> qua hai điểm $(a, f(a))$ và $(b, f(b))$ trên đồ thị.",
-                            "Vận tốc trung bình có dấu: dương nếu vật di chuyển ròng theo chiều dương, âm nếu ngược lại."
+                            "Với $f(t) = -0.25t^2 + 2t$, vận tốc trung bình trên $[0, b]$ = $\\frac{f(b) - f(0)}{b - 0} = \\frac{f(b)}{b} = -0.25b + 2$. Đường đỏ trong tương tác vừa rồi là đường thẳng có độ dốc đó — gọi là <b>cát tuyến</b> (secant).",
+                            "Nói chung: vận tốc trung bình trên $[a, b]$ = $\\frac{f(b) - f(a)}{b - a}$ = độ dốc đường thẳng nối hai điểm $(a, f(a))$ và $(b, f(b))$. <b>Có dấu</b>: dương nếu vật tiến về phía trước, âm nếu vật lùi về sau."
                         ]
                     }
                 },
@@ -74,7 +107,7 @@
                     "id": "math-vtb",
                     "type": "math",
                     "content": {
-                        "latex": "\\bar{v} = \\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a}"
+                        "latex": "\\bar{v} = \\frac{\\Delta f}{\\Delta t} = \\frac{f(b) - f(a)}{b - a} = \\text{độ dốc đường nối (cát tuyến)}"
                     }
                 }
             ]
@@ -86,10 +119,10 @@
                     "id": "text-do-doc-y-nghia",
                     "type": "text",
                     "content": {
-                        "heading": "Độ dốc mang ý nghĩa vật lý",
+                        "heading": "Vận tốc trung bình ≠ tốc độ trung bình",
                         "paragraphs": [
-                            "Cát tuyến không phải phép dựng hình vô nghĩa. Độ dốc của nó chính là vận tốc trung bình — tỷ số giữa thay đổi vị trí ròng và thời gian đã trôi.",
-                            "Vận tốc trung bình ≠ tốc độ trung bình. Vận tốc dùng $\\Delta f$ (có dấu); tốc độ dùng tổng quãng đường (không dấu)."
+                            "Trong tương tác vừa rồi, khi b = 8 thì vận tốc trung bình = 0 (vật về đúng nơi xuất phát). Nhưng tốc độ trung bình > 0 vì vật đã đi xa rồi quay về — tổng quãng đường không hề bằng 0.",
+                            "Vận tốc trung bình dùng <b>dịch chuyển ròng</b> $\\Delta f$ (có dấu), còn tốc độ trung bình dùng <b>tổng quãng đường</b> (luôn ≥ 0). Một cái cho biết hướng, một cái không."
                         ]
                     }
                 }

@@ -16,7 +16,7 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Giá trị f(2)"
+                                "parameterLabel": "Kéo điểm đỏ ● lên xuống"
                             },
                             "parameter": {
                                 "min": 0,
@@ -43,20 +43,20 @@
                                 {
                                     "id": "continuous",
                                     "trigger": "state.currentValue > 3.8 && state.currentValue < 4.2",
-                                    "text": "f(2) = 4 = lim f(x). Điểm nằm trên đường cong → hàm liên tục tại x = 2!"
+                                    "text": "Điểm đỏ ● nằm ngay trên đường cong! f(2) = 4 = giới hạn. Khi giá trị hàm = giới hạn, hàm được gọi là 'liên tục' tại x = 2 — không có lỗ hổng nào."
                                 },
                                 {
                                     "id": "discontinuous",
                                     "trigger": "state.currentValue > 5.5",
-                                    "text": "f(2) ≠ lim f(x) = 4. Điểm rời khỏi đường cong → bất liên tục tháo được."
+                                    "text": "Điểm đỏ ● rời khỏi đường cong! f(2) = {p} nhưng giới hạn = 4. Khi hai giá trị này khác nhau → hàm 'bất liên tục' tại x = 2."
                                 },
                                 {
                                     "id": "low",
                                     "trigger": "state.currentValue < 2",
-                                    "text": "f(2) quá thấp so với đường cong. Giới hạn vẫn là 4 — chỉ f(2) thay đổi."
+                                    "text": "Điểm đỏ ● nằm dưới đường cong. Giới hạn vẫn là 4 (theo đường cong), chỉ có f(2) = {p} thay đổi — hàm bất liên tục."
                                 }
                             ],
-                            "prompt": "Kéo f(2) lên xuống. Khi nào hàm trở nên liên tục tại x = 2?"
+                            "prompt": "Đồ thị là parabol y = x², với lỗ trống ○ tại x = 2.\n\n🔴 Điểm đỏ ● biểu thị giá trị f(2) — bạn có thể kéo lên xuống.\n🎯 Hỏi: Khi nào điểm đỏ nằm đúng trên đường cong? (Đó là lúc hàm 'liên tục')\n\nKhi điểm đỏ rời khỏi đường cong → hàm 'bất liên tục' (có lỗ hổng)."
                         }
                     }
                 }
@@ -71,7 +71,8 @@
                     "content": {
                         "heading": "Ba điều kiện liên tục",
                         "paragraphs": [
-                            "$f$ liên tục tại $x = a$ khi và chỉ khi: (1) $f(a)$ xác định, (2) $\\lim_{x \\to a} f(x)$ tồn tại, (3) $\\lim_{x \\to a} f(x) = f(a)$. Bỏ bất kỳ điều kiện nào → mất liên tục."
+                            "$f$ liên tục tại $x = a$ khi và chỉ khi cả ba điều kiện thỏa mãn:",
+                            "(1) $f(a)$ <b>xác định</b> — điểm tồn tại. (2) $\\lim_{x \\to a} f(x)$ <b>tồn tại</b> — đường cong hội tụ. (3) $\\lim_{x \\to a} f(x) = f(a)$ — điểm nằm trên đường cong. Trong tương tác: kéo điểm về đúng $y = 4$ (trên parabol) để cả ba thỏa mãn."
                         ]
                     }
                 }
@@ -84,9 +85,9 @@
                     "id": "text-loai-bat-lien-tuc",
                     "type": "text",
                     "content": {
-                        "heading": "Các loại bất liên tục",
+                        "heading": "Ba loại bất liên tục",
                         "paragraphs": [
-                            "<b>Tháo được</b>: giới hạn tồn tại nhưng $f(a)$ sai hoặc thiếu — sửa bằng cách đặt $f(a) = L$. <b>Nhảy</b>: giới hạn một phía bất đồng — không sửa được. <b>Vô cực</b>: $f(x) \\to \\pm\\infty$ — không sửa được."
+                            "<b>Tháo được</b> (ở tương tác): giới hạn tồn tại (= 4) nhưng $f(2) \\neq 4$ — chỉ cần đặt lại $f(2) = 4$ là sửa xong. <b>Nhảy</b>: giới hạn một phía bất đồng (như bài giới hạn một phía) — không sửa được. <b>Vô cực</b>: $f(x) \\to \\pm\\infty$ — không sửa được."
                         ]
                     }
                 }

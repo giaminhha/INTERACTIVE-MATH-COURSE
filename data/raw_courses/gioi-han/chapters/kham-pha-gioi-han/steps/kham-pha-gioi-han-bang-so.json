@@ -12,44 +12,51 @@
                     "id": "ia-gioi-han-so",
                     "type": "interaction",
                     "content": {
-                        "interactionType": "A",
+                        "interactionType": "B",
                         "lesson": {
-                            "interactionType": "A",
-                            "parameterSpec": {
-                                "resolutionLevels": [
-                                    1,
-                                    2,
-                                    4,
-                                    8,
-                                    16,
-                                    32,
-                                    64,
-                                    100
-                                ]
+                            "interactionType": "B",
+                            "meta": {
+                                "parameterLabel": "Khoảng cách hai đường đỏ đến y = 2"
                             },
-                            "systemSpec": {
-                                "function": "x * x",
-                                "derivative": "2 * x",
-                                "domain": [
-                                    -3,
-                                    3
+                            "parameter": {
+                                "min": 0.05,
+                                "max": 2,
+                                "initial": 2
+                            },
+                            "system": {
+                                "resolution": 300,
+                                "view": {
+                                    "xMin": -1,
+                                    "xMax": 3,
+                                    "yMin": -0.5,
+                                    "yMax": 4.5
+                                },
+                                "curves": [
+                                    { "expr": "x + 1", "color": "#3b82f6", "label": "f(x) = (x²−1)/(x−1)", "width": 3 },
+                                    { "expr": "2 + p", "color": "#ef4444", "label": "", "style": "dashed", "width": 1 },
+                                    { "expr": "2 - p", "color": "#ef4444", "label": "", "style": "dashed", "width": 1 },
+                                    { "expr": "2", "color": "#10b981", "label": "L = ?", "style": "dashed", "width": 1 }
                                 ],
-                                "range": [
-                                    -0.5,
-                                    10
-                                ],
-                                "anchor": 1
+                                "hole": { "x": 1 }
                             },
-                            "reflectionSpec": {
-                                "triggers": [
-                                    {
-                                        "condition": "state.resolution >= 50",
-                                        "message": "Δf/Δx ≈ 2.00 — đường cát tuyến (xanh) gần trùng tiếp tuyến (đỏ). Giá trị ổn định = giới hạn."
-                                    }
-                                ]
-                            },
-                            "prompt": "Kéo thanh trượt để tăng số điểm lấy mẫu. Quan sát đường cát tuyến (xanh) tiến gần đường tiếp tuyến (đỏ). Sai số có giảm về 0?",
-                            "sliderLabel": "Độ chính xác"
+                            "reflections": [
+                                {
+                                    "id": "wide",
+                                    "trigger": "state.currentValue > 1.5",
+                                    "text": "Hai đường đỏ còn cách xa nhau — đường cong xanh nằm bên trong dễ dàng. Hãy kéo thanh trượt sang trái để thu hẹp khoảng cách, xem đường cong có thoát ra ngoài không!"
+                                },
+                                {
+                                    "id": "medium",
+                                    "trigger": "state.currentValue > 0.3 && state.currentValue < 0.8",
+                                    "text": "Khoảng cách hẹp hơn rồi! Nhìn gần chỗ lỗ trống ○ (x = 1): đường cong xanh vẫn nằm giữa hai đường đỏ. Nghĩa là giá trị f(x) đang tiến ổn định về 2."
+                                },
+                                {
+                                    "id": "tight",
+                                    "trigger": "state.currentValue < 0.15",
+                                    "text": "Hai đường đỏ gần sát nhau, nhưng đường cong xanh vẫn nằm bên trong! Dù tại x = 1 hàm số không có giá trị (lỗ trống ○), các giá trị xung quanh đều hướng về 2. Đó chính là giới hạn!"
+                                }
+                            ],
+                            "prompt": "Đồ thị xanh là hàm f(x) = (x²−1)/(x−1). Tại x = 1, hàm không xác định (lỗ trống ○).\n\n🔴 Hai đường đỏ nét đứt nằm phía trên và phía dưới đường y = 2 (đường xanh lá).\n🎯 Nhiệm vụ: Kéo thanh trượt sang trái để thu hẹp khoảng cách giữa hai đường đỏ. Đường cong xanh gần x = 1 có luôn nằm giữa hai đường đỏ không?\n\nNếu có → giá trị hàm luôn tiến về 2 → đó là giới hạn!"
                         }
                     }
                 }
@@ -62,10 +69,10 @@
                     "id": "text-dinh-nghia-gioi-han",
                     "type": "text",
                     "content": {
-                        "heading": "Giới hạn — định nghĩa bằng số",
+                        "heading": "Hàm không xác định, nhưng giá trị tiến đến đâu?",
                         "paragraphs": [
-                            "Bạn vừa quan sát $\\Delta f / \\Delta x$ hội tụ về 2 khi khoảng thu nhỏ. Hiện tượng giá trị ổn định khi đầu vào tiến về một điểm gọi là <b>giới hạn</b>.",
-                            "Ta viết $\\lim_{x \\to a} f(x) = L$ nghĩa là: khi $x$ tiến đến $a$, $f(x)$ tiến đến $L$. Giới hạn mô tả hành vi <b>gần</b> điểm — không phải tại điểm."
+                            "Hàm $f(x) = \\frac{x^2 - 1}{x - 1}$ không xác định tại $x = 1$ (chia cho 0). Nhưng hãy thử thế các giá trị <b>gần</b> 1: $f(0.9) = 1.9$, $f(0.99) = 1.99$, $f(1.01) = 2.01$, $f(1.1) = 2.1$ — tất cả đều tiến về 2.",
+                            "Hiện tượng 'giá trị ổn định khi đầu vào tiến về một điểm' gọi là <b>giới hạn</b>. Ta viết $\\lim_{x \\to 1} f(x) = 2$. Trong tương tác, bạn vừa thấy: dù thu hẹp hành lang bao nhiêu, đường cong vẫn nằm bên trong gần $x = 1$."
                         ]
                     }
                 }
@@ -80,8 +87,9 @@
                     "content": {
                         "heading": "Giới hạn ≠ giá trị hàm",
                         "paragraphs": [
-                            "$\\lim_{x \\to a} f(x)$ có thể tồn tại ngay cả khi $f(a)$ không xác định. Ví dụ: $f(x) = (x^2 - 1)/(x-1)$ không xác định tại $x = 1$, nhưng $\\lim_{x \\to 1} f(x) = 2$ vì các giá trị gần 1 đều tiến về 2.",
-                            "Giới hạn là về <b>sự tiệm cận</b>, không phải phép thế."
+                            "Giới hạn xét hành vi <b>gần</b> một điểm, không phải <b>tại</b> điểm. $\\lim_{x \\to a} f(x) = L$ nghĩa là: khi $x$ tiến đến $a$ (từ cả hai phía), $f(x)$ tiến gần $L$ tùy ý.",
+                            "Ví dụ: $f(x) = (x^2 - 1)/(x - 1)$. Rút gọn: $(x-1)(x+1)/(x-1) = x + 1$ khi $x \\neq 1$. Đồ thị là đường $y = x + 1$ với <b>một lỗ trống tại (1, 2)</b>. Giới hạn = 2, dù $f(1)$ không tồn tại.",
+                            "Hành lang đỏ trong tương tác chính là ý tưởng cốt lõi: bạn có thể ép $f(x)$ nằm gần $L$ bao nhiêu tùy thích, miễn $x$ đủ gần $a$."
                         ]
                     }
                 }
@@ -94,27 +102,27 @@
                     "id": "quiz-l1-1",
                     "type": "quiz",
                     "content": {
-                        "question": "Trong tương tác, $f(x)$ tiến về giá trị nào khi $x \\to 1$? $f(1)$ có xác định không?",
+                        "question": "Trong tương tác, khi thu hẹp hành lang quanh $y = 2$, đường cong $f(x) = (x^2-1)/(x-1)$ gần $x = 1$:",
                         "options": [
                             {
                                 "value": "a",
-                                "label": "$f(x) \\to 1$, $f(1) = 1$"
+                                "label": "Thoát ra ngoài hành lang"
                             },
                             {
                                 "value": "b",
-                                "label": "$\\Delta f/\\Delta x \\to 2$ khi khoảng thu nhỏ — giới hạn tồn tại"
+                                "label": "Luôn nằm bên trong — giới hạn = 2"
                             },
                             {
                                 "value": "c",
-                                "label": "$f(x) \\to 0$"
+                                "label": "Dao động không ổn định"
                             },
                             {
                                 "value": "d",
-                                "label": "$f(x) \\to \\infty$"
+                                "label": "Tiến về 0"
                             }
                         ],
                         "correct": "b",
-                        "explanation": "Khi tăng resolution, $\\Delta f / \\Delta x$ ổn định tại 2 — đó là giới hạn."
+                        "explanation": "Dù hành lang thu hẹp bao nhiêu, đường cong vẫn nằm bên trong gần x = 1. Giá trị ổn định = giới hạn = 2."
                     }
                 }
             ]

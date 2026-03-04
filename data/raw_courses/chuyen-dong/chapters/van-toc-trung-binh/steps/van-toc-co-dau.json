@@ -25,11 +25,11 @@
                             "systemSpec": {
                                 "initialState": {
                                     "x": 0,
-                                    "y": -5
+                                    "y": 0
                                 },
                                 "evolutionRule": {
                                     "type": "expression",
-                                    "expression": "[1, 2*(3 - t)]",
+                                    "expression": "[1, 3 - t]",
                                     "variables": [
                                         "t",
                                         "x",
@@ -42,33 +42,33 @@
                                 "viewBox": {
                                     "xMin": 0,
                                     "xMax": 6,
-                                    "yMin": -6,
-                                    "yMax": 5
+                                    "yMin": -1,
+                                    "yMax": 5.5
                                 },
                                 "xLabel": "Thời gian (giây)",
-                                "yLabel": "Vận tốc (m/s)",
+                                "yLabel": "Vị trí (m)",
                                 "showArea": true
                             },
                             "reflectionSpec": {
                                 "triggers": [
                                     {
                                         "type": "timeReached",
-                                        "value": 5.0,
-                                        "message": "Đồ thị giảm → vận tốc âm. Vật đi theo chiều âm."
+                                        "value": 1.0,
+                                        "message": "Đồ thị dốc lên — vị trí đang tăng nhanh. Vận tốc dương: vật đi theo chiều dương."
                                     },
                                     {
                                         "type": "timeReached",
                                         "value": 3.0,
-                                        "message": "Đồ thị nằm ngang — vận tốc = 0. Vật dừng thoáng chốc trước khi đổi chiều."
+                                        "message": "Đồ thị nằm ngang — đường cong tiếp tuyến là nằm ngang, không dốc. Vận tốc = 0: vật đứng yên thoáng chốc."
                                     },
                                     {
                                         "type": "timeReached",
-                                        "value": 1.0,
-                                        "message": "Đồ thị tăng → vận tốc dương. Vật đang đi theo chiều dương."
+                                        "value": 5.0,
+                                        "message": "Đồ thị dốc xuống — vị trí đang giảm. Vận tốc âm: vật đảo chiều, quay về vị trí ban đầu."
                                     }
                                 ]
                             },
-                            "prompt": "Quan sát chỉ báo chiều. Khi nào nó đọc dương? Khi nào âm? Đặc điểm nào của đồ thị tương ứng với mỗi dấu?"
+                            "prompt": "Đây là đồ thị vị trí–thời gian. Quan sát độ dốc của đường cong: khi đường dốc lên, vật đang đi đâu? Khi nằm ngang? Khi dốc xuống?"
                         }
                     }
                 }
@@ -81,10 +81,10 @@
                     "id": "text-van-toc-dau",
                     "type": "text",
                     "content": {
-                        "heading": "Vận tốc mang dấu",
+                        "heading": "Đọc vận tốc từ đồ thị vị trí",
                         "paragraphs": [
-                            "<b>Vận tốc</b> là đại lượng có dấu. Dương khi vật đi theo chiều dương (vị trí tăng), âm khi vật đi theo chiều âm (vị trí giảm).",
-                            "<b>Tốc độ</b> là giá trị tuyệt đối của vận tốc. Vật có vận tốc $-5$ m/s đang di chuyển với tốc độ 5 m/s theo chiều âm. Dấu không phải lỗi — nó mang thông tin hướng."
+                            "Đồ thị vừa quan sát là đồ thị <b>vị trí</b> $f(t)$, không phải vận tốc. Nhưng vận tốc ẩn trong hình dạng của nó: khi $f(t)$ tăng, vật đang đi theo chiều dương; khi giảm, chiều âm; khi nằm ngang, vật đứng yên.",
+                            "<b>Vận tốc</b> là đại lượng có dấu — dấu mã hoá <i>hướng</i> chuyển động. <b>Tốc độ</b> = giá trị tuyệt đối của vận tốc (luôn ≥ 0). Vật có vận tốc $-5$ m/s đang di chuyển <i>nhanh</i> 5 m/s, nhưng theo chiều âm."
                         ]
                     }
                 }
@@ -97,10 +97,10 @@
                     "id": "text-dau-tren-do-thi",
                     "type": "text",
                     "content": {
-                        "heading": "Dấu trên đồ thị",
+                        "heading": "Dấu trên đồ thị vị trí",
                         "paragraphs": [
-                            "Nơi $f$ <b>tăng</b>: vận tốc dương. Nơi $f$ <b>giảm</b>: vận tốc âm. Tại đỉnh (chuyển từ tăng sang giảm): vận tốc bằng 0 — vật đứng yên thoáng chốc.",
-                            "Độ dịch chuyển $\\Delta f = f(b) - f(a)$ cũng có dấu. $\\Delta f > 0$: ròng theo chiều dương. $\\Delta f < 0$: ròng theo chiều âm."
+                            "Nơi $f(t)$ <b>tăng</b>: vận tốc dương (đi chiều dương). Nơi $f(t)$ <b>giảm</b>: vận tốc âm (đi chiều âm). Tại đỉnh — điểm vật đổi chiều — $f(t)$ nằm ngang thoáng chốc: vận tốc bằng 0.",
+                            "Trong hoạt hình vừa thấy: $f(3) = 4.5$ m là điểm cao nhất, vận tốc = 0 tại đó. Sau $t = 3$, $f(t)$ giảm — vật quay lại — và tại $t = 6$, $f(6) = 0$: về đúng điểm xuất phát."
                         ]
                     }
                 }

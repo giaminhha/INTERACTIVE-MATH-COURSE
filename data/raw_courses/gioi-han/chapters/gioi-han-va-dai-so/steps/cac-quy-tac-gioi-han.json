@@ -16,7 +16,7 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Hệ số g(x)"
+                                "parameterLabel": "Thay đổi độ dốc của g(x)"
                             },
                             "parameter": {
                                 "min": -2,
@@ -26,31 +26,35 @@
                             "system": {
                                 "resolution": 200,
                                 "view": {
-                                    "xMin": -2,
+                                    "xMin": -1,
                                     "xMax": 4,
                                     "yMin": -6,
-                                    "yMax": 12
+                                    "yMax": 14
                                 },
-                                "model": "(x + 1) + p * x"
+                                "curves": [
+                                    { "expr": "x + 1", "color": "#3b82f6", "label": "f(x) = x+1", "width": 2 },
+                                    { "expr": "p * x", "color": "#f59e0b", "label": "g(x) = px", "width": 2 },
+                                    { "expr": "(x + 1) + p * x", "color": "#10b981", "label": "f + g", "width": 3 }
+                                ]
                             },
                             "reflections": [
                                 {
                                     "id": "sum-law",
                                     "trigger": "state.currentValue > 0.8 && state.currentValue < 1.2",
-                                    "text": "lim f = 3, lim g = 2. lim(f+g) = 5 = 3 + 2. Quy tắc tổng hoạt động!"
+                                    "text": "Tại x = 2: giới hạn của f (xanh dương) = 3, giới hạn của g (cam) = {eval:p*2}. Giới hạn của f+g (xanh lá) = {eval:3+p*2}. Đúng bằng 3 + {eval:p*2}! Quy tắc tổng hoạt động ✔️"
                                 },
                                 {
                                     "id": "negative",
                                     "trigger": "state.currentValue < -1",
-                                    "text": "p âm → g(x) dốc xuống. Nhưng lim(f+g) vẫn = lim f + lim g."
+                                    "text": "Đường cam dốc xuống. Tại x = 2: giới hạn f = 3, giới hạn g = {eval:p*2}. Tổng giới hạn = {eval:3+p*2}. Vẫn đúng quy tắc: giới hạn của tổng = tổng các giới hạn!"
                                 },
                                 {
                                     "id": "large",
                                     "trigger": "state.currentValue > 2.5",
-                                    "text": "p lớn → g(x) dốc lên mạnh. lim(f+g) = 3 + 2p — luôn đúng quy tắc."
+                                    "text": "Đường cam dốc lên mạnh. Tổng giới hạn = 3 + {eval:p*2} = {eval:3+p*2}. Dù thay đổi g(x) thế nào, quy tắc tổng luôn đúng!"
                                 }
                             ],
-                            "prompt": "Thay đổi hệ số p. Kiểm tra: lim(f+g) có luôn bằng lim f + lim g?"
+                            "prompt": "Trên đồ thị có 3 đường:\n• Xanh dương: f(x) = x + 1\n• Cam: g(x) = p·x (bạn điều chỉnh p)\n• Xanh lá: tổng f(x) + g(x)\n\n🎯 Thay đổi p rồi đọc giá trị của 3 đường tại x = 2. Giới hạn của đường xanh lá có luôn bằng tổng giới hạn của xanh dương và cam không?"
                         }
                     }
                 }
@@ -65,7 +69,8 @@
                     "content": {
                         "heading": "Quy tắc tổng và tích",
                         "paragraphs": [
-                            "Nếu $\\lim_{x \\to a} f(x) = L$ và $\\lim_{x \\to a} g(x) = M$ thì: $\\lim[f+g] = L + M$, $\\lim[f \\cdot g] = L \\cdot M$, $\\lim[c \\cdot f] = c \\cdot L$."
+                            "Khi các giới hạn riêng lẻ tồn tại, phép cộng và nhân bảo toàn hội tụ. Nếu $\\lim_{x \\to a} f(x) = L$ và $\\lim_{x \\to a} g(x) = M$:",
+                            "<b>Tổng</b>: $\\lim[f+g] = L + M$. <b>Tích</b>: $\\lim[f \\cdot g] = L \\cdot M$. <b>Hằng số</b>: $\\lim[c \\cdot f] = c \\cdot L$. Trong tương tác, bạn thấy ba đường cong — giới hạn của đường xanh lá (f+g) luôn bằng tổng giới hạn riêng."
                         ]
                     }
                 },
@@ -85,9 +90,10 @@
                     "id": "text-thuong",
                     "type": "text",
                     "content": {
-                        "heading": "Quy tắc thương và điều kiện",
+                        "heading": "Quy tắc thương và giới hạn",
                         "paragraphs": [
-                            "$\\lim[f/g] = L/M$ khi $M \\neq 0$. Khi $M = 0$, quy tắc thương thất bại — đây chính là tình huống $0/0$ từ Bài 5 cần xử lý riêng."
+                            "<b>Thương</b>: $\\lim[f/g] = L/M$ khi $M \\neq 0$. Điều kiện $M \\neq 0$ rất quan trọng — khi mẫu tiến về 0, bạn không thể chia trực tiếp.",
+                            "Khi $M = 0$: nếu $L \\neq 0$ → $f/g \\to \\pm\\infty$ (không tồn tại). Nếu $L = 0$ → dạng bất định $0/0$, cần rút gọn đại số (bạn đã học ở bài trước)."
                         ]
                     }
                 }

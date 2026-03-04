@@ -145,6 +145,13 @@ def validate_interaction_type_b(filepath, lesson):
             if field not in shading:
                 warn(filepath, f"Type B: system.shading.{field} missing")
     
+    # trackerDot (optional)
+    trackerDot = sys.get("trackerDot")
+    if trackerDot:
+        ci = trackerDot.get("curveIndex", 0)
+        if has_curves and ci >= len(sys["curves"]):
+            err(filepath, f"Type B: trackerDot.curveIndex ({ci}) out of range")
+    
     # reflections
     reflections = lesson.get("reflections")
     if not reflections or not isinstance(reflections, list):

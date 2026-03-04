@@ -16,41 +16,46 @@
                         "lesson": {
                             "interactionType": "B",
                             "meta": {
-                                "parameterLabel": "Bán kính δ"
+                                "parameterLabel": "Thu hẹp khoảng cách hai đường đỏ"
                             },
                             "parameter": {
-                                "min": 0.01,
+                                "min": 0.02,
                                 "max": 2,
-                                "initial": 1.5
+                                "initial": 2
                             },
                             "system": {
                                 "resolution": 200,
                                 "view": {
-                                    "xMin": -1,
-                                    "xMax": 3,
+                                    "xMin": -0.5,
+                                    "xMax": 2.5,
                                     "yMin": 0,
-                                    "yMax": 7
+                                    "yMax": 6
                                 },
-                                "model": "(abs(x - 1) < p) ? (2 * x + 1) : 3"
+                                "curves": [
+                                    { "expr": "2 * x + 1", "color": "#3b82f6", "label": "f(x) = 2x + 1", "width": 3 },
+                                    { "expr": "3 + p", "color": "#ef4444", "label": "Biên trên", "style": "dashed", "width": 1 },
+                                    { "expr": "3 - p", "color": "#ef4444", "label": "Biên dưới", "style": "dashed", "width": 1 },
+                                    { "expr": "3", "color": "#10b981", "label": "Giới hạn L = 3", "style": "dashed", "width": 2 }
+                                ]
                             },
                             "reflections": [
                                 {
-                                    "id": "wide",
-                                    "trigger": "state.currentValue > 1.2",
-                                    "text": "Vùng δ rộng — f(x) dao động nhiều quanh L = 3. Dung sai ε lớn."
+                                    "id": "big-eps",
+                                    "trigger": "state.currentValue > 1",
+                                    "text": "Khoảng cách rộng ({p}). Đường cong xanh nằm thoải mái giữa hai đường đỏ. Hãy thu hẹp xem đường cong có thoát ra không!"
                                 },
                                 {
-                                    "id": "medium",
-                                    "trigger": "state.currentValue > 0.3 && state.currentValue < 0.8",
-                                    "text": "Vùng δ thu hẹp — f(x) gần L = 3 hơn. |f(x) - 3| < ε với ε nhỏ hơn."
+                                    "id": "med-eps",
+                                    "trigger": "state.currentValue > 0.1 && state.currentValue < 0.5",
+                                    "text": "Khoảng cách hẹp rồi ({p})! Gần x = 1, đường cong xanh vẫn nằm giữa hai đường đỏ. Bạn luôn có thể giữ f(x) gần L = 3!"
                                 },
                                 {
-                                    "id": "tight",
-                                    "trigger": "state.currentValue < 0.15",
-                                    "text": "δ rất nhỏ → |f(x) - 3| rất nhỏ. Với MỌI ε > 0, tồn tại δ. Giới hạn được chứng nhận!"
+                                    "id": "small-eps",
+                                    "trigger": "state.currentValue < 0.08",
+                                    "text": "Cực kỳ hẹp ({p})! Nhưng đường cong vẫn nằm bên trong. Dù bạn thu hẹp bao nhiêu, luôn giữ được f(x) gần 3. Đó là ý nghĩa của giới hạn!"
                                 }
                             ],
-                            "prompt": "Thu nhỏ δ. Vùng đường cong hiện ra có gần L = 3 hơn không?"
+                            "prompt": "Hãy tưởng tượng một thử thách: ai đó yêu cầu 'giữ f(x) nằm gần giá trị L = 3' — tức là giữa hai đường đỏ.\n\n🔴 Hai đường đỏ = biên trên và biên dưới quanh L = 3.\n🔵 Đường xanh = đồ thị hàm f(x) = 2x + 1.\n\n🎯 Kéo thanh trượt để thu hẹp hai đường đỏ. Dù hẹp đến mấy, đường cong xanh gần x = 1 có luôn nằm bên trong không?\nNếu có → giới hạn tồn tại và bằng 3!"
                         }
                     }
                 }
@@ -63,10 +68,11 @@
                     "id": "text-dinh-nghia",
                     "type": "text",
                     "content": {
-                        "heading": "Định nghĩa chính thức",
+                        "heading": "Định nghĩa chính thức — trò chơi ε–δ",
                         "paragraphs": [
-                            "$\\lim_{x \\to a} f(x) = L$ nghĩa là: với mọi $\\varepsilon > 0$, tồn tại $\\delta > 0$ sao cho $0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon$.",
-                            "Đây không phải phương pháp tính. Đây là <b>chứng nhận</b> rằng $L$ thực sự là giới hạn."
+                            "Tưởng tượng một trò chơi: đối thủ thách bạn '$f(x)$ có thể nằm gần $L$ trong phạm vi $\\varepsilon$?' Bạn phải tìm vùng $\\delta$ quanh $a$ sao cho mọi $x$ trong vùng đó đều thỏa mãn.",
+                            "$\\lim_{x \\to a} f(x) = L$ nghĩa là: <b>với mọi</b> $\\varepsilon > 0$ (dù nhỏ đến đâu), <b>tồn tại</b> $\\delta > 0$ sao cho $0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon$.",
+                            "Trong tương tác: $f(x) = 2x + 1$, $a = 1$, $L = 3$. Với mỗi $\\varepsilon$, chọn $\\delta = \\varepsilon/2$ luôn hoạt động vì $|f(x) - 3| = |2x - 2| = 2|x - 1| < 2\\delta = \\varepsilon$."
                         ]
                     }
                 },
@@ -86,9 +92,10 @@
                     "id": "text-doc-dinh-nghia",
                     "type": "text",
                     "content": {
-                        "heading": "Đọc định nghĩa",
+                        "heading": "Chứng nhận, không phải tính toán",
                         "paragraphs": [
-                            "\"Với mọi ε\" = dù dung sai đầu ra nghiêm ngặt đến đâu. \"Tồn tại δ\" = luôn tìm được dung sai đầu vào phù hợp. Điều kiện $0 < |x - a|$ loại trừ chính $x = a$ — giới hạn không quan tâm tại điểm."
+                            "ε–δ không phải công cụ <b>tìm</b> giới hạn — nó <b>chứng nhận</b> giới hạn. Bạn dùng đại số (rút gọn, quy tắc) để đoán $L$, rồi dùng ε–δ để chứng minh đoán đúng.",
+                            "Điều kiện $0 < |x - a|$ rất quan trọng: nó loại trừ $x = a$ khỏi xem xét, nhắc lại rằng giới hạn xét hành vi <b>gần</b> điểm, không phải tại điểm."
                         ]
                     }
                 }

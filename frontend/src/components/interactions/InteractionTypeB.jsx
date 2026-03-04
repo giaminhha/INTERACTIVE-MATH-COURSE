@@ -212,6 +212,25 @@ function recomputeSystem(config, p) {
     }
   }
 
+  /* ── Tracker dot (parameter as x-position along a curve) ────────────── */
+  let trackerDotData = null
+  if (config.system.trackerDot) {
+    const td = config.system.trackerDot
+    const curveIdx = td.curveIndex || 0
+    const curveFn = curvesData[curveIdx] ? curvesData[curveIdx]._fn : null
+    if (curveFn) {
+      let ty = 0
+      try { ty = curveFn(p, p) } catch { ty = 0 }
+      trackerDotData = {
+        x: p,
+        y: ty,
+        color: td.color || curvesData[curveIdx].color || '#e74c3c',
+        showLine: td.showLine !== false,
+        label: td.label || null,
+      }
+    }
+  }
+
   /* ── Legacy markers ────────────────────────────────────────────────────── */
   const markers = {}
   if (config.system.point) {
@@ -227,7 +246,7 @@ function recomputeSystem(config, p) {
     markers.hole = { x: hx, y: hy }
   }
 
-  return { curvesData, bounds: view, markers, approachData, annotationsData, shadingData }
+  return { curvesData, bounds: view, markers, approachData, annotationsData, shadingData, trackerDotData }
 }
 
 // ─── CANVAS RENDERING ────────────────────────────────────────────────────────
@@ -240,7 +259,7 @@ function setDash(ctx, style) {
 
 function renderCanvas(canvas, data) {
   const ctx = canvas.getContext('2d')
-  const { curvesData, bounds, markers, approachData, annotationsData, shadingData } = data
+  const { curvesData, bounds, markers, approachData, annotationsData, shadingData, trackerDotData } = data
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.save()
@@ -416,6 +435,39 @@ function renderCanvas(canvas, data) {
       ctx.fillStyle = dot.color
       ctx.fill()
     })
+  }
+
+  /* ── Tracker dot (parameter as x along curve) ───────────────────────── */
+  if (trackerDotData && Number.isFinite(trackerDotData.y)) {
+    const tx = mapX(trackerDotData.x)
+    const ty = mapY(trackerDotData.y)
+
+    // Vertical guide line
+    if (trackerDotData.showLine) {
+      ctx.strokeStyle = '#94a3b8'
+      ctx.lineWidth = 1.5
+      ctx.setLineDash([6, 4])
+      ctx.beginPath()
+      ctx.moveTo(tx, 0)
+      ctx.lineTo(tx, h)
+      ctx.stroke()
+      ctx.setLineDash([])
+    }
+
+    // x-label at bottom
+    ctx.fillStyle = '#475569'
+    ctx.font = 'bold 11px Inter, system-ui, sans-serif'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'bottom'
+    ctx.fillText('x = ' + trackerDotData.x.toFixed(2), tx, h - 6)
+
+    // Dot — white ring + colored center
+    if (ty > -10 && ty < h + 10) {
+      ctx.beginPath(); ctx.arc(tx, ty, 8, 0, Math.PI * 2)
+      ctx.fillStyle = '#fff'; ctx.fill()
+      ctx.beginPath(); ctx.arc(tx, ty, 6, 0, Math.PI * 2)
+      ctx.fillStyle = trackerDotData.color; ctx.fill()
+    }
   }
 
   /* ── Legend (top-right) ────────────────────────────────────────────────── */
